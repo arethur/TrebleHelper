@@ -1,0 +1,58 @@
+package com.example.weatherapp;
+
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import java.io.IOException;
+
+
+public class MainActivity extends AppCompatActivity {
+    public static String cityName;
+    public WeatherDataLoader loader = new WeatherDataLoader();
+    public static float temp;
+    public WeatherConditions conditions = new WeatherConditions();
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+    }
+
+    public String getCityName(){
+        EditText City = findViewById(R.id.City);
+        cityName = City.getText().toString();
+        return cityName;
+    }
+
+    public void getTemp(View view){
+        Log.d("Getting temp.","Getting current Temperature in a background thread" );
+        Toast.makeText(this,"Getting the Current Temperature on a background Thread.", Toast.LENGTH_SHORT).show();
+        Thread thread = new Thread(new Temperature(getCityName()));
+        thread.start();
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        Log.d("Got temp", "The temperature has been received");
+        Toast.makeText(this,"The Temperature has been received",Toast.LENGTH_LONG ).show();
+        System.out.println("This is the temp" + temp);
+    }
+
+
+
+    public void getForecast(View view){
+        Log.d("GetForecast", "Getting the forecast");
+        Toast.makeText(this, "Getting the Forecast on a background thread", Toast.LENGTH_SHORT).show();
+        Thread threadf = null;
+        try {
+            threadf = new Thread(new ForecastThread(loader.getForecast(cityName)) );
+            threadf.start();
+            threadf.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
