@@ -12,6 +12,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //Tanner added a commit.
-    //Jarom added a commit
-//2nd tanner -here's a conflict
+    //Jarom added a commit - blah
+//2nd tanner -here's a conflict - blah
 }
