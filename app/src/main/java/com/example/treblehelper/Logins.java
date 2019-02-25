@@ -10,6 +10,22 @@ public class Logins extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
+    void addUser() {
+
+    }
+
+    void addTeacher() {
+
+    }
+
+    void addStudent() {
+
+    }
+
+    void login(/*User*/) {
+
+    }
+
 
 
 }
