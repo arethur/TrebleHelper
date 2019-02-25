@@ -17,4 +17,19 @@ public class MainActivity extends AppCompatActivity {
     //sup dawg
     // making it work.
     //poop
+    void addUser() {
+
+    }
+
+    void addTeacher() {
+
+    }
+
+    void addStudent() {
+
+    }
+
+    void login(/*User*/) {
+
+    }
 }
