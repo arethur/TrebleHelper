@@ -15,6 +15,6 @@ public class MapStudentUsernameTest {
         l.addStudent(s);
         l.addStudent(p);
         assertEquals("Johnny", l.student.get("Johnny").getUsername());
-        assertEquals("James", l.student.get("Johnny").getUsername());
+        assertEquals("James", l.student.get("James").getUsername());
     }
 }

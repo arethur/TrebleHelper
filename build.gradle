@@ -6,10 +6,10 @@ buildscript {
         jcenter()
         
     }
-    dependencies {
-        // Required -- JUnit 4 framework
-        'junit:junit:4.12'
-    }
+//    dependencies {
+//        // Required -- JUnit 4 framework
+//        testImplementation 'junit:junit:4.12'
+//    }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.3.1'
         
