@@ -10,7 +10,6 @@ class Users {
     private String instrument;
     private String Username;
     private String Password;
-    private String StudentTeacher;
 
     public Users() {
         FirstName = "";
@@ -20,13 +19,11 @@ class Users {
         Email = "";
         instrument = "";
         Password = "";
-        StudentTeacher = "";
     }
 
     public Users(String firstName, String lastName, String birthday,
                  int phoneNumber, String email,
-                 String instrument, String username, String password,
-                 String studentTeacher) {
+                 String instrument, String username, String password) {
         FirstName = firstName;
         LastName = lastName;
         Birthday = birthday;
@@ -35,7 +32,6 @@ class Users {
         this.instrument = instrument;
         Username = username;
         Password = password;
-        StudentTeacher = studentTeacher;
     }
 
     public String getFirstName() {
@@ -85,13 +81,7 @@ class Users {
     public void setBirthday(String birthday) {
         Birthday = birthday;
     }
-    public String getStudentTeacher() {
-        return StudentTeacher;
-    }
 
-    public void setStudentTeacher(String studentTeacher) {
-        StudentTeacher = studentTeacher;
-    }
     public int getPhoneNumber() {
         return phoneNumber;
     }
