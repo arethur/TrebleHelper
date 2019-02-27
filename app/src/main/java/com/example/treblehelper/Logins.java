@@ -26,13 +26,6 @@ public class Logins extends AppCompatActivity {
     public void create(View v){
         startActivity(new Intent(this, createAccount.class));
     }
-    void addUser() {
-
-    }
-
-    void addTeacher() {
-
-    }
 
     void addStudent(Users user) {
         student.put(user.getUsername(),user);
