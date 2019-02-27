@@ -29,6 +29,7 @@
         android:layout_marginStart="13dp"
         android:layout_marginLeft="13dp"
         android:layout_marginTop="252dp"
+        android:onClick="create"
         android:text="@string/create"
         app:layout_constraintEnd_toStartOf="@+id/Login"
         app:layout_constraintStart_toStartOf="parent"

@@ -1,8 +1,9 @@
 package com.example.treblehelper;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-
+import android.view.View;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,6 +23,9 @@ public class Logins extends AppCompatActivity {
         student = new HashMap<>();
     }
 
+    public void create(View v){
+        startActivity(new Intent(this, createAccount.class));
+    }
     void addUser() {
 
     }
