@@ -2,15 +2,15 @@ package com.example.treblehelper;
 
 class Users {
 
-    public String FirstName;
-    public String LastName;
-    public String Birthday;
-    public int phoneNumber;
-    public String Email;
-    public String instrument;
-    public String Username;
-    public String Password;
-    public String StudentTeacher;
+    private String FirstName;
+    private String LastName;
+    private String Birthday;
+    private int phoneNumber;
+    private String Email;
+    private String instrument;
+    private String Username;
+    private String Password;
+    private String StudentTeacher;
 
     public String getFirstName() {
         return FirstName;
