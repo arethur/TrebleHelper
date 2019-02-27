@@ -12,6 +12,32 @@ class Users {
     private String Password;
     private String StudentTeacher;
 
+    public Users() {
+        FirstName = "";
+        LastName = "";
+        Birthday = "";
+        phoneNumber = 0;
+        Email = "";
+        instrument = "";
+        Password = "";
+        StudentTeacher = "";
+    }
+
+    public Users(String firstName, String lastName, String birthday,
+                 int phoneNumber, String email,
+                 String instrument, String username, String password,
+                 String studentTeacher) {
+        FirstName = firstName;
+        LastName = lastName;
+        Birthday = birthday;
+        this.phoneNumber = phoneNumber;
+        Email = email;
+        this.instrument = instrument;
+        Username = username;
+        Password = password;
+        StudentTeacher = studentTeacher;
+    }
+
     public String getFirstName() {
         return FirstName;
     }
