@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Teacher extends Users {
-    private List<Users> students;
+    public List<Users> students;
     private Announcements announcements;
 
     public Teacher() {
@@ -34,10 +34,14 @@ public class Teacher extends Users {
 
     public void addStudent(Users student) {
 
+        students.add(student);
     }
 
     public void showStudents() {
 
+        for(Users users :students){
+            System.out.println(users.getFirstName() + " " + users.getLastName());
+        }
     }
 
     public void showAnnounce() {
