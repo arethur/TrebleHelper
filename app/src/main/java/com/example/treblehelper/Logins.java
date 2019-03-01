@@ -35,8 +35,7 @@ public class Logins extends AppCompatActivity {
 
     }
 
+    public void addTeacher(){
 
-
-
-
+    }
 }

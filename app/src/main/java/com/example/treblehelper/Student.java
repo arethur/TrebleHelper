@@ -47,4 +47,8 @@ public class Student extends Users {
     public void setTasks(List<String> tasks) {
         this.tasks = tasks;
     }
+
+    public void getRecording(){}
+
+    public void searchTeaachers(){}
 }
