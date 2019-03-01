@@ -21,6 +21,7 @@ public class Logins extends AppCompatActivity {
 
     public Logins() {
         student = new HashMap<>();
+        teacher = new HashMap<>;
     }
 
     public void create(View v){
@@ -31,11 +32,14 @@ public class Logins extends AppCompatActivity {
         student.put(user.getUsername(),user);
     }
 
-    void login(Users users) {
+    void loginButton(View view) {
+        String Username;
+        String password;
+        Users user;
 
+        if(student.containsKey(Username))
+            Student(student.containsKey(Username));
     }
 
-    public void addTeacher(){
-
-    }
+    public void addTeacher(Users user){ teacher.put(user.getUsername(), user); }
 }
