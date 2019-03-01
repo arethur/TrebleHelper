@@ -30,13 +30,15 @@ public class createAccount extends AppCompatActivity {
         String phone= phoneNum.getText().toString();
         int phoneNumber=Integer.parseInt(phone);
 
-        Student student = new Student((fName.toString()), lName.toString(), birthday.toString(), phoneNumber, email.toString(), instrument.toString(),userName.toString(), password.toString());
+        Student student = new Student((fName.getText().toString()), lName.getText().toString(),
+                birthday.getText().toString(), phoneNumber, email.getText().toString(),
+                instrument.getText().toString(),userName.getText().toString(), password.getText().toString());
 
         HashMap<String, Users> hashmap = (HashMap<String, Users>) getIntent().getSerializableExtra("student");
 
         hashmap.put(student.getUsername(), student);
 
-        Toast.makeText(createAccount.this, "Account for " + student.getFirstName() + "Created.", Toast.LENGTH_LONG).show();;
+        Toast.makeText(createAccount.this, "Account for " + student.getFirstName() + " Created.", Toast.LENGTH_LONG).show();;
 
     }
 
