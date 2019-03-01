@@ -1,9 +1,14 @@
 package com.example.treblehelper;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.Toast;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,10 +17,47 @@ public class Logins extends AppCompatActivity {
     public Map<String, Users> student;
     public Map<String, Users> teacher;
 
+    private EditText passwordEditText;
+    private EditText usernameEditText;
+
+    private CheckBox rememberMe;
+    private SharedPreferences myPrefs;
+    private static final String PREFS_NAME = "myPrefs";
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        myPrefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+
+        bindWidget();
+        
+        getPreferencesData();
+    }
+
+    private void getPreferencesData() {
+        SharedPreferences sp = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        if(sp.contains("pref_name")) {
+            String u = sp.getString("pref_name","Not Found");
+            usernameEditText.setText(u.toString());
+        }
+        if(sp.contains("pref_pass")) {
+            String p = sp.getString("pref_pass", "Fot Found");
+            passwordEditText.setText(p.toString());
+        }
+        if(sp.contains("pref_check")) {
+            Boolean b = sp.getBoolean("pref_check", false);
+            rememberMe.setChecked(b);
+        }
+    }
+
+    private void bindWidget() {
+        rememberMe = (CheckBox) findViewById(R.id.checkBoxRememberMe);
+        usernameEditText = (EditText) findViewById(R.id.Username);
+        passwordEditText = (EditText) findViewById(R.id.Password);
+
     }
 
 
@@ -27,12 +69,26 @@ public class Logins extends AppCompatActivity {
         startActivity(new Intent(this, createAccount.class));
     }
 
-    void addStudent(Users user) {
+    public void addStudent(Users user) {
         student.put(user.getUsername(),user);
     }
 
-    void login(Users users) {
+    public void login(View view) {
+        if(rememberMe.isChecked()) {
+            Boolean boolIsChecked = rememberMe.isChecked();
+            SharedPreferences.Editor editor = myPrefs.edit();
+            editor.putString("pref_name", usernameEditText.getText().toString());
+            editor.putString("pref_pass", passwordEditText.getText().toString());
+            editor.putBoolean("pref_check", boolIsChecked);
+            editor.apply();
+            Toast.makeText(getApplicationContext(),
+                    "Settings have been saved",Toast.LENGTH_LONG).show();
+        }else {
+            myPrefs.edit().clear().apply();
+        }
 
+        usernameEditText.getText().clear();
+        passwordEditText.getText().clear();
     }
 
     public void addTeacher(){
