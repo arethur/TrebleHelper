@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,7 +26,10 @@ public class Logins extends AppCompatActivity {
     }
 
     public void create(View v){
-        startActivity(new Intent(this, createAccount.class));
+        Intent intent = new Intent(this, createAccount.class);
+        intent.putExtra("student", (Serializable) student);
+        intent.putExtra("teacher", (Serializable) teacher);
+        startActivity(intent);
     }
 
     void addStudent(Users user) {
