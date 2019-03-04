@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -37,6 +38,17 @@ public class Logins extends AppCompatActivity {
         bindWidget();
 
         getPreferencesData();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        //Implements the back button
+        if (id == android.R.id.home)
+        {
+            this.finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void getPreferencesData() {
@@ -92,10 +104,11 @@ public class Logins extends AppCompatActivity {
         }else {
             myPrefs.edit().clear().apply();
         }
-
         usernameEditText.getText().clear();
         passwordEditText.getText().clear();
     }
 
-    public static void addTeacher(Users users){ teacher.put(users.getUsername(), users);}
+    public static void addTeacher(Users users){
+        teacher.put(users.getUsername(), users);
+    }
 }
