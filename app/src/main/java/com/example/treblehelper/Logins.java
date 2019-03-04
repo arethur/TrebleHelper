@@ -65,6 +65,7 @@ public class Logins extends AppCompatActivity {
 
     public Logins() {
         student = new HashMap<>();
+        teacher = new HashMap<>();
     }
 
     public void create(View v){
@@ -96,7 +97,7 @@ public class Logins extends AppCompatActivity {
         passwordEditText.getText().clear();
     }
 
-    public void addTeacher(){
+    public void addTeacher(Users users){ teacher.put(users.getUsername(), users);
 
     }
 }
