@@ -2,6 +2,7 @@ package com.example.treblehelper;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -15,7 +16,24 @@ public class createAccount extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_account);
 
+
+        //add back button
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        //implements the back button
+        if (id == android.R.id.home)
+        {
+            this.finish();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
+    /****Back Button Finished */
 
     public void addStudent(View view) {
         EditText fName = (EditText) findViewById(R.id.editText);
@@ -55,7 +73,7 @@ public class createAccount extends AppCompatActivity {
         EditText password = (EditText) findViewById(R.id.editText8);
 
         String phone= phoneNumber.getText().toString();
-        int phoneNumber=Integer.parseInt(phone);
+        //int phoneNumber=Integer.parseInt(phone);
 
     }
 }
