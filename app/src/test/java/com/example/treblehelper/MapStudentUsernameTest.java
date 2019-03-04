@@ -12,8 +12,8 @@ public class MapStudentUsernameTest {
         s.setUsername("Johnny");
         p.setUsername("James");
         Logins l = new Logins();
-        l.addStudent(s);
-        l.addStudent(p);
+        l.MasteraddStudent(s);
+        l.MasteraddStudent(p);
         assertEquals("Johnny", l.student.get("Johnny").getUsername());
         assertEquals("James", l.student.get("James").getUsername());
 
