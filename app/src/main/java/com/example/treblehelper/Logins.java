@@ -75,7 +75,7 @@ public class Logins extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public static void MasteraddStudent(Users user) {
+    public static void addStudent(Users user) {
         student.put(user.getUsername(),user);
     }
 
@@ -97,5 +97,5 @@ public class Logins extends AppCompatActivity {
         passwordEditText.getText().clear();
     }
 
-    public static void MasteraddTeacher(Users users){ teacher.put(users.getUsername(), users);}
+    public static void addTeacher(Users users){ teacher.put(users.getUsername(), users);}
 }
