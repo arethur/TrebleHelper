@@ -19,7 +19,7 @@ public class TestingCreatingTeacherAccount {
         assertEquals(true, l.teacher.containsKey("JonnyBoy"));
 
         System.out.println("The teachers memory location is " + teach);
-        System.out.println("The map has it in " + Arrays.asList(l.teacher));
+        System.out.println("The map has it in this location " + Arrays.asList(l.teacher));
         System.out.println(teach.getFirstName() + " " + teach.getLastName());
     }
 }

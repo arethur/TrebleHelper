@@ -24,26 +24,11 @@ public class Teacher extends Users {
         students = new ArrayList<>();
     }
 
-    public Teacher(Editable text, Editable text1, Editable text2, int phoneNumber, Editable text3, Editable text4, Editable text5, Editable text6) {
-    }
-
     public void  Teacher(List<Users> students, Announcements announcements) {
         this.students = students;
         this.announcements = announcements;
     }
 
-    public Teacher(String firstName, String lastName, String birthday,
-                   int phoneNumber, String email,
-                   String instrument, String username, String password) {
-        setFirstName(firstName);
-        setLastName(lastName);
-        setBirthday(birthday);
-        setPhoneNumber(phoneNumber);
-        setEmail(email);
-        setInstrument(instrument);
-        setUsername(username);
-        setPassword(password);
-    }
 
     public List<Users> getStudents() {
         return students;
