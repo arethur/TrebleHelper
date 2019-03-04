@@ -104,10 +104,11 @@ public class Logins extends AppCompatActivity {
         }else {
             myPrefs.edit().clear().apply();
         }
-
         usernameEditText.getText().clear();
         passwordEditText.getText().clear();
     }
 
-    public void addTeacher(Users users){ teacher.put(users.getUsername(), users);}
+    public void addTeacher(Users users){
+        teacher.put(users.getUsername(), users);
+    }
 }
