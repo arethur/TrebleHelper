@@ -2,7 +2,11 @@ package com.example.treblehelper;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import java.util.HashMap;
 
 public class createAccount extends AppCompatActivity {
 
@@ -13,7 +17,7 @@ public class createAccount extends AppCompatActivity {
 
     }
 
-    void addUser() {
+    public void addUser(View view) {
         EditText fName = (EditText) findViewById(R.id.editText);
         EditText lName = (EditText) findViewById(R.id.editText2);
         EditText birthday = (EditText) findViewById(R.id.editText3);
@@ -26,7 +30,15 @@ public class createAccount extends AppCompatActivity {
         String phone= phoneNum.getText().toString();
         int phoneNumber=Integer.parseInt(phone);
 
-        Student student = new Student(fName.toString(), lName.toString(), birthday.toString(), phoneNumber, email.toString(), instrument.toString(),userName.toString(), password.toString());
+        Student student = new Student((fName.getText().toString()), lName.getText().toString(),
+                birthday.getText().toString(), phoneNumber, email.getText().toString(),
+                instrument.getText().toString(),userName.getText().toString(), password.getText().toString());
+
+        HashMap<String, Users> hashmap = (HashMap<String, Users>) getIntent().getSerializableExtra("student");
+
+        hashmap.put(student.getUsername(), student);
+
+        Toast.makeText(createAccount.this, "Account for " + student.getFirstName() + " Created.", Toast.LENGTH_LONG).show();;
 
     }
 
