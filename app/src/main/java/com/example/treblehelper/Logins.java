@@ -16,8 +16,8 @@ import java.util.Map;
 
 public class Logins extends AppCompatActivity {
 
-    public Map<String, Users> student;
-    public Map<String, Users> teacher;
+    public static Map<String, Users> student;
+    public static Map<String, Users> teacher;
 
     private EditText passwordEditText;
     private EditText usernameEditText;
@@ -75,7 +75,7 @@ public class Logins extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void addStudent(Users user) {
+    public static void addStudent(Users user) {
         student.put(user.getUsername(),user);
     }
 
@@ -97,7 +97,5 @@ public class Logins extends AppCompatActivity {
         passwordEditText.getText().clear();
     }
 
-    public void addTeacher(Users users){ teacher.put(users.getUsername(), users);
-
-    }
+    public void addTeacher(Users users){ teacher.put(users.getUsername(), users);}
 }

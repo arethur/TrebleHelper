@@ -17,7 +17,7 @@ public class createAccount extends AppCompatActivity {
 
     }
 
-    public void addUser(View view) {
+    public void addStudent(View view) {
         EditText fName = (EditText) findViewById(R.id.editText);
         EditText lName = (EditText) findViewById(R.id.editText2);
         EditText birthday = (EditText) findViewById(R.id.editText3);
@@ -36,6 +36,8 @@ public class createAccount extends AppCompatActivity {
 
         HashMap<String, Users> hashmap = (HashMap<String, Users>) getIntent().getSerializableExtra("student");
 
+        Logins.addStudent(student);
+
         hashmap.put(student.getUsername(), student);
 
         Toast.makeText(createAccount.this, "Account for " + student.getFirstName() + " Created.", Toast.LENGTH_LONG).show();;
@@ -51,6 +53,9 @@ public class createAccount extends AppCompatActivity {
         EditText instrument = (EditText) findViewById(R.id.editText6);
         EditText userName = (EditText) findViewById(R.id.editText7);
         EditText password = (EditText) findViewById(R.id.editText8);
+
+        String phone= phoneNumber.getText().toString();
+        int phoneNumber=Integer.parseInt(phone);
 
     }
 }
