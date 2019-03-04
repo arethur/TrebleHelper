@@ -108,7 +108,7 @@ public class Logins extends AppCompatActivity {
         passwordEditText.getText().clear();
     }
 
-    public void addTeacher(Users users){
+    public static void addTeacher(Users users){
         teacher.put(users.getUsername(), users);
     }
 }

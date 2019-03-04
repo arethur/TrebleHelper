@@ -16,6 +16,19 @@ public class Teacher extends Users {
         this.announcements = announcements;
     }
 
+    public Teacher(String firstName, String lastName, String birthday,
+                   int phoneNumber, String email,
+                   String instrument, String username, String password) {
+        setFirstName(firstName);
+        setLastName(lastName);
+        setBirthday(birthday);
+        setPhoneNumber(phoneNumber);
+        setEmail(email);
+        setInstrument(instrument);
+        setUsername(username);
+        setPassword(password);
+    }
+
     public List<Users> getStudents() {
         return students;
     }

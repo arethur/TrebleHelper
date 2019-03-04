@@ -66,14 +66,19 @@ public class createAccount extends AppCompatActivity {
         EditText fName = (EditText) findViewById(R.id.editText);
         EditText lName = (EditText) findViewById(R.id.editText2);
         EditText birthday = (EditText) findViewById(R.id.editText3);
-        EditText phoneNumber = (EditText) findViewById(R.id.editText4);
+        EditText phoneNum = (EditText) findViewById(R.id.editText4);
         EditText email = (EditText) findViewById(R.id.editText5);
         EditText instrument = (EditText) findViewById(R.id.editText6);
         EditText userName = (EditText) findViewById(R.id.editText7);
         EditText password = (EditText) findViewById(R.id.editText8);
 
-        String phone= phoneNumber.getText().toString();
-        //int phoneNumber=Integer.parseInt(phone);
+        String phone= phoneNum.getText().toString();
+        int phoneNumber=Integer.parseInt(phone);
 
+        Teacher teacher = new Teacher((fName.getText().toString()), lName.getText().toString(),
+                birthday.getText().toString(), phoneNumber, email.getText().toString(),
+                instrument.getText().toString(),userName.getText().toString(), password.getText().toString());
+
+        Logins.addTeacher(teacher);
     }
 }
