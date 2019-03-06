@@ -6,6 +6,7 @@
     <string name="create">Create New Account</string>
 
     <string name="check_remember">Remember me</string>
+    <string name="title_activity_teacher_view">TeacherView</string>
 
 
 </resources>

@@ -1,7 +1,5 @@
 package com.example.treblehelper;
 
-import android.text.Editable;
-
 import java.util.ArrayList;
 import java.util.List;
 
