@@ -109,8 +109,11 @@ public class Logins extends AppCompatActivity {
         String password = passwordEditText.getText().toString();
 
         if(teacher.containsKey(username) && teacher.get(username).getPassword() == password){
-            Intent intent = new Intent(this, TeacherView.class);
+            Teacher teacherUser = new Teacher(username);
+            TeacherView TV = new TeacherView(teacherUser);
+            Intent intent = new Intent(this, TV.getClass());
             startActivity(intent);
+
         }else if(student.containsKey(username) && student.get(username).getPassword() == password){
             Intent intent = new Intent(this, StudentView.class);
             startActivity(intent);

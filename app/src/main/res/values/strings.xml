@@ -4,7 +4,6 @@
     <string name="password">Password</string>
     <string name="login">Login</string>
     <string name="create">Create New Account</string>
-
     <string name="check_remember">Remember me</string>
     <string name="title_activity_teacher_view">TeacherView</string>
     <string name="title_activity_student_view">StudentView</string>
