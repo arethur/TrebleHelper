@@ -10,9 +10,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".StudentView"
+            android:label="@string/title_activity_student_view"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
             android:name=".TeacherView"
             android:label="@string/title_activity_teacher_view"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".createAccount" />
         <activity android:name=".Logins">
             <intent-filter>
