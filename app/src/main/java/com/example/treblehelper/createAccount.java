@@ -2,6 +2,7 @@ package com.example.treblehelper;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -58,7 +59,8 @@ public class createAccount extends AppCompatActivity {
 
         hashmap.put(student.getUsername(), student);
 
-        Toast.makeText(createAccount.this, "Account for " + student.getFirstName() + " Created.", Toast.LENGTH_LONG).show();;
+        Log.d("StudentAccount", "A student account was made.");
+        Toast.makeText(createAccount.this, "Account for " + student.getFirstName() + " Created.", Toast.LENGTH_LONG).show();
 
     }
 
@@ -80,5 +82,9 @@ public class createAccount extends AppCompatActivity {
                 instrument.getText().toString(),userName.getText().toString(), password.getText().toString());
 
         Logins.addTeacher(teacher);
+
+        Log.d("TeacherAccount", "Teacher account has been created");
+        Toast.makeText(createAccount.this, "Account for " + teacher.getFirstName() + " Created.", Toast.LENGTH_LONG).show();
+
     }
 }

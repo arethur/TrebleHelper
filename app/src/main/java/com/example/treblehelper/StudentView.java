@@ -9,6 +9,10 @@ import android.view.View;
 
 public class StudentView extends AppCompatActivity {
 
+    public StudentView(Student student) {
+
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

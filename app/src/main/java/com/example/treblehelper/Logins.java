@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
@@ -109,13 +110,27 @@ public class Logins extends AppCompatActivity {
         String password = passwordEditText.getText().toString();
 
         if(teacher.containsKey(username) && teacher.get(username).getPassword() == password){
-            Teacher teacherUser = new Teacher(username);
+
+            Log.i("LoginMatchTeacher", "The Username and Password match a teacher's account");
+
+            Teacher teacherUser = (Teacher) teacher.get(username);
             TeacherView TV = new TeacherView(teacherUser);
             Intent intent = new Intent(this, TV.getClass());
+
+            Log.i("TeacherView", "Teacher intent was created");
+
             startActivity(intent);
 
         }else if(student.containsKey(username) && student.get(username).getPassword() == password){
-            Intent intent = new Intent(this, StudentView.class);
+
+            Log.i("LoginMatchStudent", "The Username and Password match a student's account");
+
+            Student studentUser = (Student) student.get(username);
+            StudentView SV = new StudentView(studentUser);
+            Intent intent = new Intent(this, SV.getClass());
+
+            Log.i("StudentView", "Student intent was created.");
+
             startActivity(intent);
         } else
             Toast.makeText(this,"Invalid Username or Password.",Toast.LENGTH_LONG).show();
