@@ -14,7 +14,6 @@ public class Announcements {
 
     public Announcements(Context context) {
         this.cnxt = context;
-        context = this.cnxt;
     }
 
     public Announcements(List<String> announcements) {

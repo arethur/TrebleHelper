@@ -12,11 +12,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class TeacherView extends AppCompatActivity {
 
     private Teacher teacher;
-    private ArrayList<Users> students = (ArrayList<Users>) teacher.students;
+    private List<Users> studentList = (ArrayList<Users>) teacher.students;
     private ListView SL;
 
     TeacherView(Teacher teachers1){
@@ -30,16 +31,28 @@ public class TeacherView extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        Log.i("Listviews", "Starting on list views.");
 
         TextView name = findViewById(R.id.textView2);
         name.setText(teacher.getFirstName() + " " + teacher.getLastName());
+
+        Log.i("Listviews", "Starting on list views.");
+
+        Announcements announcements = new Announcements(this);
+        announcements.viewAnnouncements();
 
         Log.d("AnoucementsList", "Announcement listView was made.");
 
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
         SL = SL.findViewById(R.id.studentslist);
         SL.setAdapter(arrayAdapter);
+
+        for(Users students : studentList) {
+            String outlook = " ";
+            if (studentList.size() > 0) {
+                outlook = String.valueOf(studentList.get(0));
+            }
+            arrayAdapter.add(outlook);
+        }
 
         Log.d("StudentsList","Student ListView was made");
 
