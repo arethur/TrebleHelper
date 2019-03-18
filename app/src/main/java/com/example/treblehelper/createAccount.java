@@ -55,18 +55,18 @@ public class createAccount extends AppCompatActivity {
             return;
         }
 
-        String phone= phoneNum.getText().toString();
-        int phoneNumber=Integer.parseInt(phone);
+        String phone = phoneNum.getText().toString();
+        int phoneNumber = Integer.parseInt(phone);
 
         Student student = new Student((fName.getText().toString()), lName.getText().toString(),
                 birthday.getText().toString(), phoneNumber, email.getText().toString(),
                 instrument.getText().toString(),userName.getText().toString(), password.getText().toString());
 
-        HashMap<String, Users> hashmap = (HashMap<String, Users>) getIntent().getSerializableExtra("student");
+//        HashMap<String, Users> hashmap = (HashMap<String, Users>) getIntent().getSerializableExtra("student");
 
         Logins.addStudent(student);
 
-        hashmap.put(student.getUsername(), student);
+//        hashmap.put(student.getUsername(), student);
 
         Log.d("StudentAccount", "A student account was made.");
         Toast.makeText(createAccount.this, "Account for " + student.getFirstName() + " Created.", Toast.LENGTH_LONG).show();
@@ -87,7 +87,7 @@ public class createAccount extends AppCompatActivity {
         EditText password = (EditText) findViewById(R.id.password);
         EditText password2 = findViewById(R.id.password2);
 
-        if(!password.equals(password2)){
+        if(password.getText() != password2.getText()){
             Toast.makeText(createAccount.this, "Passwords do not match.",Toast.LENGTH_LONG).show();
             password.getText().clear();
             password2.getText().clear();
