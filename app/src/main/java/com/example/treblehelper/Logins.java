@@ -23,7 +23,8 @@ public class Logins extends AppCompatActivity {
     public FirebaseDatabase database = FirebaseDatabase.getInstance();
     public DatabaseReference myRef = database.getReference("Hello World!");
 
-    myRef
+//    myRef.setValue("Hello World!")
+
     public static Map<String, Users> student;
     public static Map<String, Users> teacher;
 
