@@ -38,20 +38,21 @@ public class createAccount extends AppCompatActivity {
     /****Back Button Finished */
 
     public void addStudent(View view) {
-        EditText fName = findViewById(R.id.editText);
-        EditText lName = findViewById(R.id.editText2);
-        EditText birthday = findViewById(R.id.editText3);
-        EditText phoneNum = findViewById(R.id.editText4);
-        EditText email = findViewById(R.id.editText5);
-        EditText instrument = findViewById(R.id.editText6);
-        EditText userName = findViewById(R.id.editText7);
-        EditText password = findViewById(R.id.editText8);
-        EditText password2 = findViewById(R.id.editText9);
+        EditText fName = findViewById(R.id.firstName);
+        EditText lName = findViewById(R.id.lastName);
+        EditText birthday = findViewById(R.id.birthday);
+        EditText phoneNum = findViewById(R.id.phoneNum);
+        EditText email = findViewById(R.id.email);
+        EditText instrument = findViewById(R.id.instrument);
+        EditText userName = findViewById(R.id.userName);
+        EditText password = findViewById(R.id.password);
+        EditText password2 = findViewById(R.id.password2);
 
         if(!password.equals(password2)){
             Toast.makeText(createAccount.this, "Passwords do not match.",Toast.LENGTH_LONG).show();
             password.getText().clear();
             password2.getText().clear();
+            return;
         }
 
         String phone= phoneNum.getText().toString();
@@ -76,20 +77,21 @@ public class createAccount extends AppCompatActivity {
     }
 
     public void addTeacher(View View) {
-        EditText fName = (EditText) findViewById(R.id.editText);
-        EditText lName = (EditText) findViewById(R.id.editText2);
-        EditText birthday = (EditText) findViewById(R.id.editText3);
-        EditText phoneNum = (EditText) findViewById(R.id.editText4);
-        EditText email = (EditText) findViewById(R.id.editText5);
-        EditText instrument = (EditText) findViewById(R.id.editText6);
-        EditText userName = (EditText) findViewById(R.id.editText7);
-        EditText password = (EditText) findViewById(R.id.editText8);
-        EditText password2 = findViewById(R.id.editText9);
+        EditText fName = (EditText) findViewById(R.id.firstName);
+        EditText lName = (EditText) findViewById(R.id.lastName);
+        EditText birthday = (EditText) findViewById(R.id.birthday);
+        EditText phoneNum = (EditText) findViewById(R.id.phoneNum);
+        EditText email = (EditText) findViewById(R.id.email);
+        EditText instrument = (EditText) findViewById(R.id.instrument);
+        EditText userName = (EditText) findViewById(R.id.userName);
+        EditText password = (EditText) findViewById(R.id.password);
+        EditText password2 = findViewById(R.id.password2);
 
         if(!password.equals(password2)){
             Toast.makeText(createAccount.this, "Passwords do not match.",Toast.LENGTH_LONG).show();
             password.getText().clear();
             password2.getText().clear();
+            return;
         }
 
         String phone= phoneNum.getText().toString();
