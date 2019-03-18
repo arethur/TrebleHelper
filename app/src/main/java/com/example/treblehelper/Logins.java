@@ -20,9 +20,10 @@ import java.util.Map;
 
 public class Logins extends AppCompatActivity {
 
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference myRef = database.getReference("Hello World!");
+    public FirebaseDatabase database = FirebaseDatabase.getInstance();
+    public DatabaseReference myRef = database.getReference("Hello World!");
 
+    myRef
     public static Map<String, Users> student;
     public static Map<String, Users> teacher;
 
