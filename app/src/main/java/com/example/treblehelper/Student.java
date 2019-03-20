@@ -1,6 +1,7 @@
 package com.example.treblehelper;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class Student extends Users {
@@ -21,7 +22,7 @@ public class Student extends Users {
 
     public Student(String firstName, String lastName, String birthday,
                  int phoneNumber, String email,
-                 String instrument, String username, String password) {
+                 String instrument, String username, String password, int Age) {
         setFirstName(firstName);
         setLastName(lastName);
         setBirthday(birthday);
@@ -30,6 +31,7 @@ public class Student extends Users {
         setInstrument(instrument);
         setUsername(username);
         setPassword(password);
+        setAge(Age);
     }
 
     public List<Teacher> getTeachers() {
@@ -51,4 +53,8 @@ public class Student extends Users {
     public void getRecording(){}
 
     public void searchTeaachers(){}
+
 }
+
+
+

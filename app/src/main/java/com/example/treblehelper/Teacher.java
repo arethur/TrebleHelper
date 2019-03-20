@@ -1,10 +1,17 @@
 package com.example.treblehelper;
 
+import android.view.View;
+
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
+import static com.example.treblehelper.Student.*;
+import static com.example.treblehelper.Student.StuFirstNameComparator;
+
 public class Teacher extends Users {
-    public List<Users> students;
+    public List<Student> students;
     private Announcements announcements;
 
     public Teacher(String Username){
@@ -12,7 +19,7 @@ public class Teacher extends Users {
     }
     public Teacher(String firstName, String lastName, String birthday,
                    int phoneNumber, String email,
-                   String instrument, String username, String password) {
+                   String instrument, String username, String password, int Age) {
         setFirstName(firstName);
         setLastName(lastName);
         setBirthday(birthday);
@@ -21,21 +28,22 @@ public class Teacher extends Users {
         setInstrument(instrument);
         setUsername(username);
         setPassword(password);
+        setAge(Age);
 
         students = new ArrayList<>();
     }
 
-    public void  Teacher(List<Users> students, Announcements announcements) {
+    public void  Teacher(List<Student> students, Announcements announcements) {
         this.students = students;
         this.announcements = announcements;
     }
 
 
-    public List<Users> getStudents() {
+    public List<Student> getStudents() {
         return students;
     }
 
-    public void setStudents(List<Users> students) {
+    public void setStudents(List<Student> students) {
         this.students = students;
     }
 
@@ -47,7 +55,7 @@ public class Teacher extends Users {
         this.announcements = announcements;
     }
 
-    public void addStudent(Users student) {
+    public void addStudent(Student student) {
 
         students.add(student);
     }
@@ -63,13 +71,18 @@ public class Teacher extends Users {
 
     }
 
-    public void sortList() {
-
+    public void sortListFname() {
+        Collections.sort(this.students, Users.StuFirstNameComparator); }
+    public void sortListLname() { Collections.sort(this.students, Users.StuLastNameComparator); }
+    public void sortListAge() {
+        Collections.sort(this.students, Users.StuAge);
+    }
+    public void sortListInstrument() {
+        Collections.sort(this.students, Users.StuInstrumentComparator);
     }
 
     public void viewOneStudent() {
 
     }
-
 
 }
