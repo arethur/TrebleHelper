@@ -11,12 +11,19 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Logins extends AppCompatActivity {
+
+    public FirebaseDatabase database = FirebaseDatabase.getInstance();
+    public DatabaseReference myRef = database.getReference("Hello World!");
+
+//    myRef.setValue("Hello World!")
 
     public static Map<String, Users> student;
     public static Map<String, Users> teacher;

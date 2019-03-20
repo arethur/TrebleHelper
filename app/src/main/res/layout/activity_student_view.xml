@@ -20,7 +20,7 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_student_view" />
+    <!--<include layout="@layout/content_student_view" />-->
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
@@ -33,7 +33,7 @@
     <ListView
         android:id="@+id/annoucements"
         android:layout_width="124dp"
-        android:layout_height="672dp"
+        android:layout_height="600dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
