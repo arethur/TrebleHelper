@@ -1,5 +1,7 @@
 package com.example.treblehelper;
 
+import java.util.Comparator;
+
 class Users {
 
     private String FirstName;
@@ -10,6 +12,7 @@ class Users {
     private String instrument;
     private String Username;
     private String Password;
+    private int age;
 
     public Users() {
         FirstName = "";
@@ -19,6 +22,7 @@ class Users {
         Email = "";
         instrument = "";
         Password = "";
+        age = 0;
     }
 
     public Users(String firstName, String lastName, String birthday,
@@ -98,4 +102,75 @@ class Users {
         this.instrument = instrument;
     }
 
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+
+    /************These Are the Sorting Functions********************************************/
+
+
+    //FIRST NAME SORT
+    public static Comparator<Student> StuFirstNameComparator = new Comparator<Student>() {
+
+        public int compare(Student s1, Student s2) {
+            String StudentName1 = s1.getFirstName().toUpperCase();
+            String StudentName2 = s2.getFirstName().toUpperCase();
+
+            //ascending order
+            return StudentName1.compareTo(StudentName2);
+
+            //descending order
+            //return StudentName2.compareTo(StudentName1);
+        }};
+
+
+    //LAST NAME SORT
+    public static Comparator<Student> StuLastNameComparator = new Comparator<Student>() {
+
+        public int compare(Student s1, Student s2) {
+            String StudentName1 = s1.getFirstName().toUpperCase();
+            String StudentName2 = s2.getFirstName().toUpperCase();
+
+            //ascending order
+            return StudentName1.compareTo(StudentName2);
+
+            //descending order
+            //return StudentName2.compareTo(StudentName1);
+        }
+    };
+
+
+    //AGE SORT
+    public static Comparator<Student> StuAge = new Comparator<Student>() {
+
+        public int compare(Student s1, Student s2) {
+
+            int Age = s1.getAge();
+            int Age2 = s2.getAge();
+
+            /*For ascending order*/
+            return Age-Age2;
+
+            /*For descending order*/
+            //rollno2-rollno1;
+        }};
+
+    //INSTRUMENT SORT
+    public static Comparator<Student> StuInstrumentComparator = new Comparator<Student>() {
+
+        public int compare(Student s1, Student s2) {
+            String Instrument1 = s1.getInstrument().toUpperCase();
+            String Instrument2 = s2.getInstrument().toUpperCase();
+
+            //ascending order
+            return Instrument1.compareTo(Instrument2);
+
+            //descending order
+            //return StudentName2.compareTo(StudentName1);
+        }};
 }
