@@ -45,6 +45,7 @@ public class createAccount extends AppCompatActivity {
         EditText userName = findViewById(R.id.userName);
         EditText password = findViewById(R.id.password);
         EditText password2 = findViewById(R.id.password2);
+        EditText age = findViewById(R.id.age);
 
         if(!password.equals(password2)){
             Toast.makeText(createAccount.this, "Passwords do not match.",Toast.LENGTH_LONG).show();
@@ -53,14 +54,15 @@ public class createAccount extends AppCompatActivity {
             return;
         }
 
-        String phone = phoneNum.getText().toString();
+        String phone = phoneNum.getText().toString();  //GETS PHONE NUMBER AS INT
         int phoneNumber = Integer.parseInt(phone);
 
-        int age = AgeCalculation(birthday);
+        String Age1 = age.getText().toString();  //GETS AGE AS INT
+        int Age = Integer.parseInt(phone);
 
         Student student = new Student((fName.getText().toString()), lName.getText().toString(),
                 birthday.getText().toString(), phoneNumber, email.getText().toString(),
-                instrument.getText().toString(),userName.getText().toString(), password.getText().toString(), age);
+                instrument.getText().toString(),userName.getText().toString(), password.getText().toString(), Age);
 
 //        HashMap<String, Users> hashmap = (HashMap<String, Users>) getIntent().getSerializableExtra("student");
 
@@ -86,6 +88,8 @@ public class createAccount extends AppCompatActivity {
         EditText userName = (EditText) findViewById(R.id.userName);
         EditText password = (EditText) findViewById(R.id.password);
         EditText password2 = findViewById(R.id.password2);
+        EditText age = findViewById(R.id.age);
+
 
         if(password.getText() != password2.getText()){
             Toast.makeText(createAccount.this, "Passwords do not match.",Toast.LENGTH_LONG).show();
@@ -97,11 +101,12 @@ public class createAccount extends AppCompatActivity {
         String phone= phoneNum.getText().toString();
         int phoneNumber=Integer.parseInt(phone);
 
-        int age = AgeCalculation(birthday);
+        String Age1 = age.getText().toString();  //GETS AGE AS INT
+        int Age = Integer.parseInt(phone);
 
         Teacher teacher = new Teacher((fName.getText().toString()), lName.getText().toString(),
                 birthday.getText().toString(), phoneNumber, email.getText().toString(),
-                instrument.getText().toString(),userName.getText().toString(), password.getText().toString(), age);
+                instrument.getText().toString(),userName.getText().toString(), password.getText().toString(), Age);
 
         Logins.addTeacher(teacher);
 
@@ -113,9 +118,5 @@ public class createAccount extends AppCompatActivity {
 
     }
 
-    public static int AgeCalculation (EditText birthday){
-        int Age =0;
-        System.out.println(birthday.toString());
-        return Age;
-    }
+
 }
