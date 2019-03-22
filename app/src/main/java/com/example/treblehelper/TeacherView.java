@@ -17,7 +17,7 @@ import java.util.List;
 public class TeacherView extends AppCompatActivity {
 
     private Teacher teacher;
-    private List<Users> studentList = (ArrayList<Users>) teacher.students;
+    private ArrayList<Student> studentList = (ArrayList<Student>) teacher.students;
     private ListView SL;
 
     TeacherView(Teacher teachers1){
