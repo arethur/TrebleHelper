@@ -201,7 +201,7 @@
             android:layout_marginRight="8dp"
             android:ems="10"
             android:hint="Age"
-            android:inputType="textPassword"
+            android:inputType="number"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.494"
             app:layout_constraintStart_toStartOf="parent"

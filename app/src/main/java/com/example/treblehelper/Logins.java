@@ -118,7 +118,7 @@ public class Logins extends AppCompatActivity {
         String username = usernameEditText.getText().toString();
         String password = passwordEditText.getText().toString();
 
-        if(teacher.containsKey(username) && teacher.get(username).getPassword() == password){
+        if(teacher.containsKey(username) && teacher.get(username).getPassword().equals(password)){
 
             Log.i("LoginMatchTeacher", "The Username and Password match a teacher's account");
 
@@ -149,6 +149,7 @@ public class Logins extends AppCompatActivity {
 
     public static void addTeacher(Users users){
         teacher.put(users.getUsername(), users);
+        System.out.println(teacher.get(users.getUsername()).getUsername());
     }
 
 
