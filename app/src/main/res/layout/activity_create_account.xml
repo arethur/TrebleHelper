@@ -58,9 +58,9 @@
             android:hint="Phone Number"
             android:inputType="phone"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.494"
+            app:layout_constraintHorizontal_bias="0.505"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/birthday" />
+            app:layout_constraintTop_toBottomOf="@+id/age" />
 
         <EditText
             android:id="@+id/email"
@@ -134,13 +134,13 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="112dp"
             android:layout_marginLeft="112dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="24dp"
             android:layout_marginRight="24dp"
             android:onClick="addStudent"
             android:text="Student"
             app:layout_constraintEnd_toStartOf="@+id/button3"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/password2" />
 
@@ -148,9 +148,9 @@
             android:id="@+id/button3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="35dp"
-            android:layout_marginEnd="100dp"
-            android:layout_marginRight="100dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="112dp"
+            android:layout_marginRight="112dp"
             android:onClick="addTeacher"
             android:text="@string/Teacher"
             app:layout_constraintEnd_toEndOf="parent"
@@ -189,6 +189,23 @@
             app:layout_constraintHorizontal_bias="0.494"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/password" />
+
+        <EditText
+            android:id="@+id/age"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:ems="10"
+            android:hint="Age"
+            android:inputType="textPassword"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.494"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/birthday" />
 
     </android.support.constraint.ConstraintLayout>
 </ScrollView>
