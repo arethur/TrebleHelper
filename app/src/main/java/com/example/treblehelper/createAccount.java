@@ -56,9 +56,11 @@ public class createAccount extends AppCompatActivity {
         String phone = phoneNum.getText().toString();
         int phoneNumber = Integer.parseInt(phone);
 
+        int age = AgeCalculation(birthday);
+
         Student student = new Student((fName.getText().toString()), lName.getText().toString(),
                 birthday.getText().toString(), phoneNumber, email.getText().toString(),
-                instrument.getText().toString(),userName.getText().toString(), password.getText().toString());
+                instrument.getText().toString(),userName.getText().toString(), password.getText().toString(), age);
 
 //        HashMap<String, Users> hashmap = (HashMap<String, Users>) getIntent().getSerializableExtra("student");
 
@@ -95,9 +97,11 @@ public class createAccount extends AppCompatActivity {
         String phone= phoneNum.getText().toString();
         int phoneNumber=Integer.parseInt(phone);
 
+        int age = AgeCalculation(birthday);
+
         Teacher teacher = new Teacher((fName.getText().toString()), lName.getText().toString(),
                 birthday.getText().toString(), phoneNumber, email.getText().toString(),
-                instrument.getText().toString(),userName.getText().toString(), password.getText().toString());
+                instrument.getText().toString(),userName.getText().toString(), password.getText().toString(), age);
 
         Logins.addTeacher(teacher);
 
@@ -109,5 +113,9 @@ public class createAccount extends AppCompatActivity {
 
     }
 
-
+    public static int AgeCalculation (EditText birthday){
+        int Age =0;
+        System.out.println(birthday.toString());
+        return Age;
+    }
 }

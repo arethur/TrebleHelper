@@ -1,14 +1,8 @@
 package com.example.treblehelper;
 
-import android.view.View;
-
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
-
-import static com.example.treblehelper.Student.*;
-import static com.example.treblehelper.Student.StuFirstNameComparator;
 
 public class Teacher extends Users {
     public List<Student> students;
