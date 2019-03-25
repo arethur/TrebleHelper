@@ -79,8 +79,8 @@ public class Logins extends AppCompatActivity {
 
     private void bindWidget() {
         rememberMe = (CheckBox) findViewById(R.id.checkBoxRememberMe);
-        usernameEditText = (EditText) findViewById(R.id.Username);
-        passwordEditText = (EditText) findViewById(R.id.Password);
+        usernameEditText = findViewById(R.id.Username);
+        passwordEditText = findViewById(R.id.Password);
 
     }
 
@@ -118,6 +118,9 @@ public class Logins extends AppCompatActivity {
         String username = usernameEditText.getText().toString();
         String password = passwordEditText.getText().toString();
 
+
+        Log.d("J-DEBUG","contains key?: " + teacher.containsKey(username));
+//        Log.d("DEBUG","correct password?: " + teacher.get(username).getPassword().equals(password));
         if(teacher.containsKey(username) && teacher.get(username).getPassword().equals(password)){
 
             Log.i("LoginMatchTeacher", "The Username and Password match a teacher's account");
@@ -148,8 +151,9 @@ public class Logins extends AppCompatActivity {
     }
 
     public static void addTeacher(Users users){
+        Log.d("J-DEBUG","Teacher: " + users.getUsername());
         teacher.put(users.getUsername(), users);
-        System.out.println(teacher.get(users.getUsername()).getUsername());
+        Log.d("J-DEBUG","contains key?: " + teacher.containsKey(users.getUsername()));
     }
 
 
