@@ -97,8 +97,12 @@ public class Logins extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public static void addStudent(Users user) {
+    public void addStudent(Users user) {
+        UserMapManager mngr = new UserMapManager();
+        student.clear();
+        student = mngr.getUserMap(this);
         student.put(user.getUsername(),user);
+        mngr.saveUserMap(student, this);
     }
 
     public void login(View view) {
@@ -150,9 +154,14 @@ public class Logins extends AppCompatActivity {
             passwordEditText.getText().clear();
     }
 
-    public static void addTeacher(Users users){
+    public void addTeacher(Users users){
         Log.d("J-DEBUG","Teacher: " + users.getUsername());
+        UserMapManager mngr = new UserMapManager();
+        if (teacher.size() > 0)
+            teacher.clear();
+        teacher = mngr.getUserMap(this);
         teacher.put(users.getUsername(), users);
+        mngr.saveUserMap(teacher, this);
         Log.d("J-DEBUG","contains key?: " + teacher.containsKey(users.getUsername()));
     }
 

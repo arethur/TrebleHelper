@@ -66,7 +66,7 @@ public class createAccount extends AppCompatActivity {
                 birthday.getText().toString(), phoneNumber, email.getText().toString(),
                 instrument.getText().toString(),userName.getText().toString(), password.getText().toString(), Age);
 
-        Logins.addStudent(student);
+        .addStudent(student);
 
         Log.d("StudentAccount", "A student account was made.");
         Toast.makeText(createAccount.this, "Account for " + student.getFirstName() + " Created.", Toast.LENGTH_LONG).show();
