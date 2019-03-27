@@ -9,9 +9,20 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.HashMap;
+import java.util.Map;
 
 public class createAccount extends AppCompatActivity {
+
+    public final FirebaseDatabase database = FirebaseDatabase.getInstance();
+    public DatabaseReference ref = database.getReference("server/saving-data/TrebleHelpers");
+    public DatabaseReference usersRef = ref.child("users");
+
+    public static Map<String, Users> studentMap;
+    public static Map<String, Users> teacherMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,9 +77,11 @@ public class createAccount extends AppCompatActivity {
                 birthday.getText().toString(), phoneNumber, email.getText().toString(),
                 instrument.getText().toString(),userName.getText().toString(), password.getText().toString(), Age);
 
-        Logins.addStudent(student);
+        studentMap.put(student.getUsername(), student);
 
         Log.d("StudentAccount", "A student account was made.");
+        usersRef.setValue(student);
+        Log.d("FirebaseStudentSave", "student was saved to firebase");
         Toast.makeText(createAccount.this, "Account for " + student.getFirstName() + " Created.", Toast.LENGTH_LONG).show();
 
         Intent intent = new Intent(this, Logins.class);
@@ -106,9 +119,12 @@ public class createAccount extends AppCompatActivity {
                 birthday.getText().toString(), phoneNumber, email.getText().toString(),
                 instrument.getText().toString(),userName.getText().toString(), password.getText().toString(), Age);
 
-        Logins.addTeacher(teacher);
+        teacherMap.put(teacher.getUsername(), teacher);
 
         Log.d("TeacherAccount", "Teacher account has been created");
+        usersRef.setValue(teacher);
+
+        Log.d("FirebaseTeacherSave", "Teacher saved to firebase");
         Toast.makeText(createAccount.this, "Account for " + teacher.getFirstName() + " Created.", Toast.LENGTH_LONG).show();
 
         Intent intent = new Intent(this, Logins.class);

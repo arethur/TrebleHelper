@@ -11,24 +11,14 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Logins extends AppCompatActivity {
 
-    public FirebaseDatabase database = FirebaseDatabase.getInstance();
-    public DatabaseReference myRef = database.getReference("Hello World!");
-
-    // myRef.setValue("Hello World!");
-
-
-
-    public static Map<String, Users> student;
-    public static Map<String, Users> teacher;
+    public Map<String, Users> student =  createAccount.studentMap;
+    public Map<String, Users> teacher = createAccount.teacherMap;
 
     private EditText passwordEditText;
     private EditText usernameEditText;
@@ -42,7 +32,6 @@ public class Logins extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         myPrefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
 
         bindWidget();
@@ -97,10 +86,6 @@ public class Logins extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public static void addStudent(Users user) {
-        student.put(user.getUsername(),user);
-    }
-
     public void login(View view) {
         if(rememberMe.isChecked()) {
             Boolean boolIsChecked = rememberMe.isChecked();
@@ -147,10 +132,15 @@ public class Logins extends AppCompatActivity {
             passwordEditText.getText().clear();
     }
 
-    public static void addTeacher(Users users){
-        teacher.put(users.getUsername(), users);
-        System.out.println(teacher.get(users.getUsername()).getUsername());
-    }
-
+//    public static void addTeacher(Users users){
+//        teacher.put(users.getUsername(), users);
+//        Log.d("addTeacher", "new Teacher added." + teacher.get(users.getUsername()));
+//    }
+//
+//    public static void addStudent(Users user) {
+//
+//        student.put(user.getUsername(),user);
+//        Log.d("AddStudent", "new Student added" + student.get(user.getUsername()));
+//    }
 
 }
