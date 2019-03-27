@@ -4,6 +4,9 @@ import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,6 +14,7 @@ import java.util.Map;
 public class UserMapManager extends AppCompatActivity {
     private SharedPreferences myPrefs;
     private static final String PREFS = "MAP_LOCATION";
+    private static final String MAP_KEY = "MAP_KEY";
     private Map userMap;
     private Gson gson;
 
@@ -21,13 +25,23 @@ public class UserMapManager extends AppCompatActivity {
     }
 
     public Map<String, Users> getUserMap() {
-        if (myPrefs.contains(PREFS)) {
+        if (myPrefs.contains(MAP_KEY)) {
+            String stringMap = myPrefs.getString(MAP_KEY,null);
+            Type typeStringMap = new TypeToken<Map<String, Users>>() {}.getType();
+            userMap = gson.fromJson(stringMap, typeStringMap);
+            return userMap;
+        } else
+            return null;
 
-        }
-        return userMap;
     }
 
-    public void saveUserMap() {
-
+    public void saveUserMap(Users user) {
+        if (myPrefs.contains(MAP_KEY)) {
+            myPrefs.edit().clear().apply();
+        }
+        SharedPreferences.Editor editor = myPrefs.edit();
+        String mapString = gson.toJson(user);
+        editor.putString(MAP_KEY, mapString);
+        editor.apply();
     }
 }
