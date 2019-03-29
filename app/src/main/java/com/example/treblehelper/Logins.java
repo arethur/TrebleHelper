@@ -11,6 +11,9 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
@@ -37,6 +40,17 @@ public class Logins extends AppCompatActivity {
         bindWidget();
 
         getPreferencesData();
+        FirebaseDatabase.DefaultInstance
+                .GetReference("Leaders")
+                .GetValueAsync().ContinueWith(task => {
+        if (task.IsFaulted) {
+            // Handle the error...
+        }
+        else if (task.IsCompleted) {
+            DataSnapshot snapshot = task.Result;
+            // Do something with snapshot...
+        }
+      });
     }
 
     @Override

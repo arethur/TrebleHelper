@@ -24,6 +24,9 @@ public class createAccount extends AppCompatActivity {
     public static Map<String, Users> studentMap;
     public static Map<String, Users> teacherMap;
 
+    public void createAccount(){
+
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
