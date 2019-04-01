@@ -69,12 +69,15 @@ public class createAccount extends AppCompatActivity {
             password2.getText().clear();
             return;
         }
+        Log.d("PhoneNumber", "Converetering phone number to a string");
 
         String phone = phoneNum.getText().toString();  //GETS PHONE NUMBER AS INT
         int phoneNumber = Integer.parseInt(phone);
 
         String Age1 = age.getText().toString();  //GETS AGE AS INT
         int Age = Integer.parseInt(phone);
+
+        Log.d("IntToStrings", "Convereted age and phone number to strings");
 
         Student student = new Student((fName.getText().toString()), lName.getText().toString(),
                 birthday.getText().toString(), phoneNumber, email.getText().toString(),
@@ -112,11 +115,14 @@ public class createAccount extends AppCompatActivity {
             return;
         }
 
+        Log.d("PhoneNumber", "Converetering phone number to a string");
         String phone = phoneNum.getText().toString();
         int phoneNumber = Integer.parseInt(phone);
 
         String Age1 = age.getText().toString();  //GETS AGE AS INT
         int Age = Integer.parseInt(Age1);
+
+        Log.d("IntToStrings", "Convereted age and phone number to strings");
 
         Teacher teacher = new Teacher((fName.getText().toString()), lName.getText().toString(),
                 birthday.getText().toString(), phoneNumber, email.getText().toString(),

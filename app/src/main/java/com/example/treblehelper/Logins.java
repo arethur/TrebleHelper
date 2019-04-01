@@ -2,6 +2,7 @@ package com.example.treblehelper;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,8 +12,16 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -20,8 +29,11 @@ import java.util.Map;
 
 public class Logins extends AppCompatActivity {
 
+    public DatabaseReference myref = FirebaseDatabase.getInstance().getReference("/users/Q6i1lwnmJhmuVXAz1qgO");
     public Map<String, Users> student =  createAccount.studentMap;
     public Map<String, Users> teacher = createAccount.teacherMap;
+    private FirebaseAuth mAuth;
+
 
     private EditText passwordEditText;
     private EditText usernameEditText;
@@ -31,26 +43,55 @@ public class Logins extends AppCompatActivity {
     private static final String PREFS_NAME = "myPrefs";
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         myPrefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
 
-        bindWidget();
+        mAuth = FirebaseAuth.getInstance();
 
-        getPreferencesData();
-        FirebaseDatabase.DefaultInstance
-                .GetReference("Leaders")
-                .GetValueAsync().ContinueWith(task => {
-        if (task.IsFaulted) {
-            // Handle the error...
-        }
-        else if (task.IsCompleted) {
-            DataSnapshot snapshot = task.Result;
-            // Do something with snapshot...
-        }
-      });
+
+                myref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String message = (String) dataSnapshot.getValue();
+                System.out.println("This is the message" + message);
+
+            }
+
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                System.out.println("Error! Database Cancelled");
+
+            }
+
+        });
+
+
+//        myref.setValue("Hello World");
+//        System.out.println("Database refence is " + myref);
+        mAuth.signInAnonymously()
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d("SingIn", "signInAnonymously:success");
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            updateUI(user);
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w("SingIn", "signInAnonymously:failure", task.getException());
+                            Toast.makeText(Logins.this, "Authentication failed.",Toast.LENGTH_SHORT).show();
+                            updateUI(null);
+                        }
+
+                        // ...
+                    }
+                });
     }
 
     @Override
