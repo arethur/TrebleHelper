@@ -2,7 +2,6 @@ package com.example.treblehelper;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.icu.util.ValueIterator;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -33,12 +32,13 @@ import javax.xml.transform.Source;
 
 public class Logins extends AppCompatActivity {
 
-    public DatabaseReference myref = FirebaseDatabase.getInstance()
-            .getReference("/users/Q6i1lwnmJhmuVXAz1qgO");
-    public Map<String, Users> student =  createAccount.studentMap;
-    public Map<String, Users> teacher = createAccount.teacherMap;
-    private FirebaseAuth mAuth;
+    public FirebaseDatabase myref = FirebaseDatabase.getInstance();
+    public DatabaseReference FirebaseStudent = myref.getReference("/users/Q6i1lwnmJhmuVXAz1qgO/student");
+    public DatabaseReference FirebaseTeacher = myref.getReference("/users/Q6i1lwnmJhmuVXAz1qgO/teacher");
 
+    public Map<String, Users> student;
+    public Map<String, Users> teacher;
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     private EditText passwordEditText;
     private EditText usernameEditText;
@@ -56,7 +56,6 @@ public class Logins extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         myPrefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
 
-        mAuth = FirebaseAuth.getInstance();
 
         mAuth.signInAnonymously()
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -72,35 +71,8 @@ public class Logins extends AppCompatActivity {
                             Toast.makeText(Logins.this, "Authentication failed.",Toast.LENGTH_SHORT).show();
 
                         }
-
-                        // ...
                     }
                 });
-
-        myref.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                Map map = (Map) dataSnapshot.getValue();
-                Iterator<String> itr = map.keySet().iterator();
-                while((itr).hasNext()){
-                    System.out.println("This is in the map " +((Iterator) itr).next());
-               }
-
-                String message = (String) dataSnapshot.getValue();
-                Log.d ("ReadingFirebase","This is the message in firebase " + message);
-
-            }
-
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.d("ErrorWithFirebase","Error! Database Cancelled");
-
-            }
-
-        });
-
     }
 
     @Override
@@ -141,32 +113,80 @@ public class Logins extends AppCompatActivity {
     public Logins() {
         student = new HashMap<>();
         teacher = new HashMap<>();
-        //This is a test.
-            Student TestStudent = new Student("Gary","Robert",
-                    "May 20 1997",55065252,
-                    "gary@gmail.com", "piano",
-                    "GarBot", "123", 14);
 
-            student.put(TestStudent.getUsername(), TestStudent);
+        FirebaseStudent.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-            myref.setValue(student);
+                student = (Map) dataSnapshot.getValue();
+                Iterator<String> itr = student.keySet().iterator();
+                while ((itr).hasNext()) {
+                    System.out.println("This is in the map " + ((Iterator) itr).next());
+                }
 
-            Teacher TestTeacher = new Teacher( "Hannah", "Smith",
-                    "November 2, 2016", 55026982,
-                    "hannah@gmail.com", "piano",
-                    "HanahBot", "123", 31 );
+                String message = (String) dataSnapshot.getValue();
+                Log.d("ReadingFirebase", "This is the message in firebase " + message);
 
-            teacher.put(TestTeacher.getUsername(), TestTeacher);
+            }
 
-            System.out.println("This is the test in Create account");
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.d("ErrorWithFirebase", "Error! Database Cancelled");
+
+            }
+
+
+        });
+
+        FirebaseTeacher.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                teacher = (Map) dataSnapshot.getValue();
+                Iterator<String> itr = teacher.keySet().iterator();
+                while ((itr).hasNext()) {
+                    System.out.println("This is in the map " + ((Iterator) itr).next());
+                }
+
+                String message = (String) dataSnapshot.getValue();
+                Log.d("ReadingFirebase", "This is the message in firebase " + message);
+
+            }
+
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.d("ErrorWithFirebase", "Error! Database Cancelled");
+
+            }
+        });
     }
+//        //This is a test.
+//            Student TestStudent = new Student("Gary","Robert",
+//                    "May 20 1997",55065252,
+//                    "gary@gmail.com", "piano",
+//                    "GarBot", "123", 14);
+//
+//            student.put(TestStudent.getUsername(), TestStudent);
+//
+//            myref.setValue(student);
+//
+//            Teacher TestTeacher = new Teacher( "Hannah", "Smith",
+//                    "November 2, 2016", 55026982,
+//                    "hannah@gmail.com", "piano",
+//                    "HanahBot", "123", 31 );
+//
+//            teacher.put(TestTeacher.getUsername(), TestTeacher);
+//
+//            System.out.println("This is the test in Create account");
+
 
 
     public void create(View v){
         Intent intent = new Intent(this, createAccount.class);
-//        intent.putExtra("student", (Serializable) student);
-//        intent.putExtra("teacher", (Serializable) teacher);
+        intent.putExtra("student", (Serializable) student);
+        intent.putExtra("teacher", (Serializable) teacher);
         startActivity(intent);
     }
 
@@ -215,16 +235,5 @@ public class Logins extends AppCompatActivity {
             usernameEditText.getText().clear();
             passwordEditText.getText().clear();
     }
-
-//    public static void addTeacher(Users users){
-//        teacher.put(users.getUsername(), users);
-//        Log.d("addTeacher", "new Teacher added." + teacher.get(users.getUsername()));
-//    }
-//
-//    public static void addStudent(Users user) {
-//
-//        student.put(user.getUsername(),user);
-//        Log.d("AddStudent", "new Student added" + student.get(user.getUsername()));
-//    }
 
 }

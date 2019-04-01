@@ -12,13 +12,13 @@ import android.widget.Toast;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class createAccount extends AppCompatActivity {
 
-    public static DatabaseReference myref = FirebaseDatabase.getInstance()
-                        .getReference("/users/Q6i1lwnmJhmuVXAz1qgO");
+    private FirebaseDatabase myref = FirebaseDatabase.getInstance();
+    private DatabaseReference StudentDatabase = myref.getReference("/users/Q6i1lwnmJhmuVXAz1qgO/student");
+    private DatabaseReference TeacherDatabase = myref.getReference("/users/Q6i1lwnmJhmuVXAz1qgO/teacher");
 
     public static Map<String, Users> studentMap;
     public static Map<String, Users> teacherMap;
@@ -84,7 +84,7 @@ public class createAccount extends AppCompatActivity {
         studentMap.put(student.getUsername(), student);
 
         Log.d("StudentAccount", "A student account was made.");
-        myref.setValue(student);
+        StudentDatabase.setValue(student);
         Log.d("FirebaseStudentSave", "student was saved to firebase");
         Toast.makeText(createAccount.this, "Account for " + student.getFirstName() + " Created.", Toast.LENGTH_LONG).show();
 
@@ -129,7 +129,7 @@ public class createAccount extends AppCompatActivity {
         teacherMap.put(teacher.getUsername(), teacher);
 
         Log.d("TeacherAccount", "Teacher account has been created");
-        myref.setValue(teacher);
+        TeacherDatabase.setValue(teacher);
 
         Log.d("FirebaseTeacherSave", "Teacher saved to firebase");
         Toast.makeText(createAccount.this, "Account for " + teacher.getFirstName() + " Created.", Toast.LENGTH_LONG).show();
