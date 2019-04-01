@@ -24,14 +24,13 @@ public class createAccount extends AppCompatActivity {
     public static Map<String, Users> studentMap;
     public static Map<String, Users> teacherMap;
 
-    public void createAccount(){
+    private UserMapManager userMapManager;
 
-    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_account);
-
+        userMapManager = new UserMapManager();
 
         //add back button
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -79,9 +78,9 @@ public class createAccount extends AppCompatActivity {
         Student student = new Student((fName.getText().toString()), lName.getText().toString(),
                 birthday.getText().toString(), phoneNumber, email.getText().toString(),
                 instrument.getText().toString(),userName.getText().toString(), password.getText().toString(), Age);
-
+        studentMap = userMapManager.getUserMap(this, "STUDENT");
         studentMap.put(student.getUsername(), student);
-
+        userMapManager.saveUserMap(studentMap,this, "STUDENT");
         Log.d("StudentAccount", "A student account was made.");
         usersRef.setValue(student);
         Log.d("FirebaseStudentSave", "student was saved to firebase");
@@ -122,7 +121,9 @@ public class createAccount extends AppCompatActivity {
                 birthday.getText().toString(), phoneNumber, email.getText().toString(),
                 instrument.getText().toString(),userName.getText().toString(), password.getText().toString(), Age);
 
+        teacherMap = userMapManager.getUserMap(this, "TEACHER");
         teacherMap.put(teacher.getUsername(), teacher);
+        userMapManager.saveUserMap(teacherMap,this, "TEACHER");
 
         Log.d("TeacherAccount", "Teacher account has been created");
         usersRef.setValue(teacher);

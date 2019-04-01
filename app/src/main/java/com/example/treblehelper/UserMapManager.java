@@ -13,7 +13,8 @@ import java.util.Map;
 
 public class UserMapManager {
     private static final String PREFS = "MAP_LOCATION";
-    private static final String MAP_KEY = "MAP_KEY";
+    private static final String MAP_TEACHER = "MAP_TEACHER";
+    private static final String MAP_STUDENT = "MAP_STUDENT";
     private Map userMap;
     private Gson gson;
 
@@ -22,28 +23,42 @@ public class UserMapManager {
         gson = new Gson();
     }
 
-    public Map<String, Users> getUserMap(Context context) {
+    public Map<String, Users> getUserMap(Context context, String userType) {
         SharedPreferences myPrefs = context.getSharedPreferences(PREFS, Context.MODE_PRIVATE);
-        if (myPrefs.contains(MAP_KEY)) {
-            String stringMap = myPrefs.getString(MAP_KEY,null);
-            Type typeStringMap = new TypeToken<Map<String, Users>>() {}.getType();
+        Type typeStringMap = new TypeToken<Map<String, Users>>() {}.getType();
+        if (userType.equals("TEACHER")) {
+            String stringMap = myPrefs.getString(MAP_TEACHER,null);
+            userMap = gson.fromJson(stringMap, typeStringMap);
+            Log.d("J-DEBUG","Getting a Map");
+            return userMap;
+        } else if (userType.equals("STUDENT")) {
+            String stringMap = myPrefs.getString(MAP_STUDENT,null);
             userMap = gson.fromJson(stringMap, typeStringMap);
             Log.d("J-DEBUG","Getting a Map");
             return userMap;
         } else
             return null;
-
     }
 
-    public void saveUserMap(Map<String, Users> user, Context context) {
+    public void saveUserMap(Map<String, Users> user, Context context, String userType) {
         SharedPreferences myPrefs = context.getSharedPreferences(PREFS, Context.MODE_PRIVATE);
-        if (myPrefs.contains(MAP_KEY)) {
-            myPrefs.edit().clear().apply();
-        }
         SharedPreferences.Editor editor = myPrefs.edit();
-        String mapString = gson.toJson(user);
-        editor.putString(MAP_KEY, mapString);
-        editor.apply();
-        Log.d("J-DEBUG","Setting a Map");
+        if(userType.equals("TEACHER")) {
+            if (myPrefs.contains(MAP_TEACHER)) {
+                myPrefs.edit().clear().apply();
+            }
+            String mapString = gson.toJson(user);
+            editor.putString(MAP_TEACHER, mapString);
+            editor.apply();
+            Log.d("J-DEBUG", "Setting a Map");
+        } else if(userType.equals("STUDENT")) {
+            if (myPrefs.contains(MAP_STUDENT)) {
+                myPrefs.edit().clear().apply();
+            }
+            String mapString = gson.toJson(user);
+            editor.putString(MAP_STUDENT, mapString);
+            editor.apply();
+            Log.d("J-DEBUG", "Setting a Map");
+        }
     }
 }

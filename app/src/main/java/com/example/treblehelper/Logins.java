@@ -20,14 +20,15 @@ import java.util.Map;
 
 public class Logins extends AppCompatActivity {
 
-    public Map<String, Users> student =  createAccount.studentMap;
-    public Map<String, Users> teacher = createAccount.teacherMap;
+    public Map<String, Users> student;
+    public Map<String, Users> teacher;
 
     private EditText passwordEditText;
     private EditText usernameEditText;
 
     private CheckBox rememberMe;
     private SharedPreferences myPrefs;
+    private UserMapManager mapManager;
     private static final String PREFS_NAME = "myPrefs";
 
 
@@ -37,6 +38,9 @@ public class Logins extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         myPrefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        mapManager = new UserMapManager();
+        student = mapManager.getUserMap(this, "STUDENT");
+        teacher = mapManager.getUserMap(this, "TEACHER");
 
         bindWidget();
 
@@ -53,6 +57,14 @@ public class Logins extends AppCompatActivity {
         }
       });
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        student = mapManager.getUserMap(this, "STUDENT");
+        teacher = mapManager.getUserMap(this, "TEACHER");
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
