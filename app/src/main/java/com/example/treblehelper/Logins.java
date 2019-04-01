@@ -2,6 +2,8 @@ package com.example.treblehelper;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.icu.util.ValueIterator;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,17 +13,34 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+
+import javax.xml.transform.Source;
 
 public class Logins extends AppCompatActivity {
 
     public Map<String, Users> student;
     public Map<String, Users> teacher;
+    public DatabaseReference myref = FirebaseDatabase.getInstance()
+            .getReference("/users/Q6i1lwnmJhmuVXAz1qgO");
+    public Map<String, Users> student =  createAccount.studentMap;
+    public Map<String, Users> teacher = createAccount.teacherMap;
+    private FirebaseAuth mAuth;
+
 
     private EditText passwordEditText;
     private EditText usernameEditText;
@@ -30,6 +49,7 @@ public class Logins extends AppCompatActivity {
     private SharedPreferences myPrefs;
     private UserMapManager mapManager;
     private static final String PREFS_NAME = "myPrefs";
+
 
 
     @Override
@@ -42,7 +62,50 @@ public class Logins extends AppCompatActivity {
         student = new HashMap<>();
         teacher = new HashMap<>();
 
-        bindWidget();
+        mAuth = FirebaseAuth.getInstance();
+
+        mAuth.signInAnonymously()
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d("SingIn", "signInAnonymously:success");
+                            FirebaseUser user = mAuth.getCurrentUser();
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w("SingIn", "signInAnonymously:failure", task.getException());
+                            Toast.makeText(Logins.this, "Authentication failed.",Toast.LENGTH_SHORT).show();
+
+                        }
+
+                        // ...
+                    }
+                });
+
+        myref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                Map map = (Map) dataSnapshot.getValue();
+                Iterator<String> itr = map.keySet().iterator();
+                while((itr).hasNext()){
+                    System.out.println("This is in the map " +((Iterator) itr).next());
+               }
+
+                String message = (String) dataSnapshot.getValue();
+                Log.d ("ReadingFirebase","This is the message in firebase " + message);
+
+            }
+
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.d("ErrorWithFirebase","Error! Database Cancelled");
+
+            }
+
+        });
 
         getPreferencesData();
 
@@ -87,6 +150,31 @@ public class Logins extends AppCompatActivity {
         rememberMe = (CheckBox) findViewById(R.id.checkBoxRememberMe);
         usernameEditText = findViewById(R.id.Username);
         passwordEditText = findViewById(R.id.Password);
+
+    }
+
+
+    public Logins() {
+        student = new HashMap<>();
+        teacher = new HashMap<>();
+        //This is a test.
+            Student TestStudent = new Student("Gary","Robert",
+                    "May 20 1997",55065252,
+                    "gary@gmail.com", "piano",
+                    "GarBot", "123", 14);
+
+            student.put(TestStudent.getUsername(), TestStudent);
+
+            myref.setValue(student);
+
+            Teacher TestTeacher = new Teacher( "Hannah", "Smith",
+                    "November 2, 2016", 55026982,
+                    "hannah@gmail.com", "piano",
+                    "HanahBot", "123", 31 );
+
+            teacher.put(TestTeacher.getUsername(), TestTeacher);
+
+            System.out.println("This is the test in Create account");
 
     }
 

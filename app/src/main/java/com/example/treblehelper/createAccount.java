@@ -17,9 +17,8 @@ import java.util.Map;
 
 public class createAccount extends AppCompatActivity {
 
-    public final FirebaseDatabase database = FirebaseDatabase.getInstance();
-    public DatabaseReference ref = database.getReference("server/saving-data/TrebleHelpers");
-    public DatabaseReference usersRef = ref.child("users");
+    public static DatabaseReference myref = FirebaseDatabase.getInstance()
+                        .getReference("/users/Q6i1lwnmJhmuVXAz1qgO");
 
     public Map<String, Users> studentMap;
     public Map<String, Users> teacherMap;
@@ -38,6 +37,8 @@ public class createAccount extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
+
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -70,12 +71,15 @@ public class createAccount extends AppCompatActivity {
             password2.getText().clear();
             return;
         }
+        Log.d("PhoneNumber", "Converetering phone number to a string");
 
         String phone = phoneNum.getText().toString();  //GETS PHONE NUMBER AS INT
         int phoneNumber = Integer.parseInt(phone);
 
         String Age1 = age.getText().toString();  //GETS AGE AS INT
         int Age = Integer.parseInt(phone);
+
+        Log.d("IntToStrings", "Convereted age and phone number to strings");
 
         Student student = new Student((fName.getText().toString()), lName.getText().toString(),
                 birthday.getText().toString(), phoneNumber, email.getText().toString(),
@@ -86,7 +90,7 @@ public class createAccount extends AppCompatActivity {
         userMapManager.saveUserMap(studentMap,this, "STUDENT");
 
         Log.d("StudentAccount", "A student account was made.");
-        usersRef.setValue(student);
+        myref.setValue(student);
         Log.d("FirebaseStudentSave", "student was saved to firebase");
         Toast.makeText(createAccount.this, "Account for " + student.getFirstName() + " Created.", Toast.LENGTH_LONG).show();
 
@@ -115,6 +119,7 @@ public class createAccount extends AppCompatActivity {
             return;
         }
 
+        Log.d("PhoneNumber", "Converetering phone number to a string");
         String phone = phoneNum.getText().toString();
         int phoneNumber = Integer.parseInt(phone);
         Log.d("J-DEBUG", "Phone: " + phone);
@@ -122,6 +127,8 @@ public class createAccount extends AppCompatActivity {
         String Age1 = age.getText().toString();  //GETS AGE AS INT
         int Age = Integer.parseInt(Age1);
         Log.d("J-Debug", "Age: " + Age1);
+
+        Log.d("IntToStrings", "Convereted age and phone number to strings");
 
         Teacher teacher = new Teacher((fName.getText().toString()), lName.getText().toString(),
                 birthday.getText().toString(), phoneNumber, email.getText().toString(),
@@ -132,7 +139,7 @@ public class createAccount extends AppCompatActivity {
         userMapManager.saveUserMap(teacherMap,this, "TEACHER");
 
         Log.d("TeacherAccount", "Teacher account has been created");
-//        usersRef.setValue(teacher);
+        myref.setValue(teacher);
 
         Log.d("FirebaseTeacherSave", "Teacher saved to firebase");
         Toast.makeText(createAccount.this, "Account for " + teacher.getFirstName() + " Created.", Toast.LENGTH_LONG).show();
