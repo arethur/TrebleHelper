@@ -2,7 +2,6 @@ package com.example.treblehelper;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.icu.util.ValueIterator;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -29,8 +28,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import javax.xml.transform.Source;
-
 public class Logins extends AppCompatActivity {
 
     public FirebaseDatabase myref = FirebaseDatabase.getInstance();
@@ -50,14 +47,14 @@ public class Logins extends AppCompatActivity {
     private UserMapManager mapManager;
     private static final String PREFS_NAME = "myPrefs";
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         myPrefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+//        getPreferencesData();
+
 
         mAuth = FirebaseAuth.getInstance();
         mapManager = new UserMapManager();
@@ -75,19 +72,21 @@ public class Logins extends AppCompatActivity {
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("SingIn", "signInAnonymously:failure", task.getException());
-                            Toast.makeText(Logins.this, "Authentication failed.",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Logins.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
 
                         }
 
-        getPreferencesData();
+                    }
+                });
+
 
     }
 
     @Override
     public void onResume() {
-        super.onResume();
-        student = mapManager.getUserMap(this, "STUDENT");
-        teacher = mapManager.getUserMap(this, "TEACHER");
+        Logins.super.onResume();
+        student = mapManager.getUserMap(Logins.this, "STUDENT");
+        teacher = mapManager.getUserMap(Logins.this, "TEACHER");
     }
 
 
@@ -97,27 +96,27 @@ public class Logins extends AppCompatActivity {
         //Implements the back button
         if (id == android.R.id.home)
         {
-            this.finish();
+            finish();
         }
-        return super.onOptionsItemSelected(item);
+        return Logins.super.onOptionsItemSelected(item);
     }
 
     private void getPreferencesData() {
         SharedPreferences sp = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-        if(sp.contains("pref_name")) {
-            String u = sp.getString("pref_name","Not Found");
+        if (sp.contains("pref_name")) {
+            String u = sp.getString("pref_name", "Not Found");
             usernameEditText.setText(u.toString());
         }
-        if(sp.contains("pref_pass")) {
+        if (sp.contains("pref_pass")) {
             String p = sp.getString("pref_pass", "Fot Found");
             passwordEditText.setText(p.toString());
         }
-        if(sp.contains("pref_check")) {
+        if (sp.contains("pref_check")) {
             Boolean b = sp.getBoolean("pref_check", false);
             rememberMe.setChecked(b);
+        } else {
         }
     }
-
     private void bindWidget() {
         rememberMe = (CheckBox) findViewById(R.id.checkBoxRememberMe);
         usernameEditText = findViewById(R.id.Username);
@@ -126,7 +125,7 @@ public class Logins extends AppCompatActivity {
     }
 
 
-    public Logins() {
+    public void Logins(){
         student = new HashMap<>();
         teacher = new HashMap<>();
         FirebaseStudent.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -198,9 +197,9 @@ public class Logins extends AppCompatActivity {
 
 
     public void create(View v){
-        Intent intent = new Intent(this, createAccount.class);
-//        intent.putExtra("student", (Serializable) student);
-//        intent.putExtra("teacher", (Serializable) teacher);
+        Intent intent = new Intent(Logins.this, createAccount.class);
+        intent.putExtra("student", (Serializable) student);
+        intent.putExtra("teacher", (Serializable) teacher);
         startActivity(intent);
     }
 
@@ -227,7 +226,7 @@ public class Logins extends AppCompatActivity {
 
             Teacher teacherUser = (Teacher) teacher.get(username);
             TeacherView TV = new TeacherView(teacherUser);
-            Intent intent = new Intent(this, TV.getClass());
+            Intent intent = new Intent(Logins.this, TV.getClass());
 
             Log.i("TeacherView", "Teacher intent was created");
 
@@ -239,13 +238,13 @@ public class Logins extends AppCompatActivity {
 
             Student studentUser = (Student) student.get(username);
             StudentView SV = new StudentView(studentUser);
-            Intent intent = new Intent(this, SV.getClass());
+            Intent intent = new Intent(Logins.this, SV.getClass());
 
             Log.i("StudentView", "Student intent was created.");
 
             startActivity(intent);
         } else
-            Toast.makeText(this,"Invalid Username or Password.",Toast.LENGTH_LONG).show();
+            Toast.makeText(Logins.this,"Invalid Username or Password.",Toast.LENGTH_LONG).show();
             usernameEditText.getText().clear();
             passwordEditText.getText().clear();
     }
