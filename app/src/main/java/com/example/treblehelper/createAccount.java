@@ -17,9 +17,8 @@ import java.util.Map;
 
 public class createAccount extends AppCompatActivity {
 
-    public final FirebaseDatabase database = FirebaseDatabase.getInstance();
-    public DatabaseReference ref = database.getReference("server/saving-data/TrebleHelpers");
-    public DatabaseReference usersRef = ref.child("users");
+    public static DatabaseReference myref = FirebaseDatabase.getInstance()
+                        .getReference("/users/Q6i1lwnmJhmuVXAz1qgO");
 
     public static Map<String, Users> studentMap;
     public static Map<String, Users> teacherMap;
@@ -37,6 +36,28 @@ public class createAccount extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
+
+    //This is a test.
+    public createAccount(){
+        Student TestStudent = new Student("Gary","Robert",
+                "May 20 1997",55065252,
+                "gary@gmail.com", "piano",
+                "GarBot", "123", 14);
+
+        studentMap.put(TestStudent.getUsername(), TestStudent);
+
+        myref.setValue(studentMap);
+
+        Teacher TestTeacher = new Teacher( "Hannah", "Smith",
+                "November 2, 2016", 55026982,
+                "hannah@gmail.com", "piano",
+                "HanahBot", "123", 31 );
+
+        teacherMap.put(TestTeacher.getUsername(), TestTeacher);
+
+        System.out.println("This is the test in Create account");
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -86,7 +107,7 @@ public class createAccount extends AppCompatActivity {
         studentMap.put(student.getUsername(), student);
 
         Log.d("StudentAccount", "A student account was made.");
-        usersRef.setValue(student);
+        myref.setValue(student);
         Log.d("FirebaseStudentSave", "student was saved to firebase");
         Toast.makeText(createAccount.this, "Account for " + student.getFirstName() + " Created.", Toast.LENGTH_LONG).show();
 
@@ -131,7 +152,7 @@ public class createAccount extends AppCompatActivity {
         teacherMap.put(teacher.getUsername(), teacher);
 
         Log.d("TeacherAccount", "Teacher account has been created");
-        usersRef.setValue(teacher);
+        myref.setValue(teacher);
 
         Log.d("FirebaseTeacherSave", "Teacher saved to firebase");
         Toast.makeText(createAccount.this, "Account for " + teacher.getFirstName() + " Created.", Toast.LENGTH_LONG).show();
@@ -140,6 +161,4 @@ public class createAccount extends AppCompatActivity {
         startActivity(intent);
 
     }
-
-
 }

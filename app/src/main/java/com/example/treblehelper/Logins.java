@@ -2,6 +2,7 @@ package com.example.treblehelper;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.icu.util.ValueIterator;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -25,11 +26,15 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+
+import javax.xml.transform.Source;
 
 public class Logins extends AppCompatActivity {
 
-    public DatabaseReference myref = FirebaseDatabase.getInstance().getReference("/users/Q6i1lwnmJhmuVXAz1qgO");
+    public DatabaseReference myref = FirebaseDatabase.getInstance()
+            .getReference("/users/Q6i1lwnmJhmuVXAz1qgO");
     public Map<String, Users> student =  createAccount.studentMap;
     public Map<String, Users> teacher = createAccount.teacherMap;
     private FirebaseAuth mAuth;
@@ -46,33 +51,13 @@ public class Logins extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         myPrefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
 
         mAuth = FirebaseAuth.getInstance();
 
-
-                myref.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String message = (String) dataSnapshot.getValue();
-                System.out.println("This is the message" + message);
-
-            }
-
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                System.out.println("Error! Database Cancelled");
-
-            }
-
-        });
-
-
-//        myref.setValue("Hello World");
-//        System.out.println("Database refence is " + myref);
         mAuth.signInAnonymously()
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -81,17 +66,41 @@ public class Logins extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("SingIn", "signInAnonymously:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("SingIn", "signInAnonymously:failure", task.getException());
                             Toast.makeText(Logins.this, "Authentication failed.",Toast.LENGTH_SHORT).show();
-                            updateUI(null);
+
                         }
 
                         // ...
                     }
                 });
+
+        myref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                Map map = (Map) dataSnapshot.getValue();
+                Iterator<String> itr = map.keySet().iterator();
+                while((itr).hasNext()){
+                    System.out.println("This is in the map " +((Iterator) itr).next());
+               }
+
+                String message = (String) dataSnapshot.getValue();
+                Log.d ("ReadingFirebase","This is the message in firebase " + message);
+
+            }
+
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.d("ErrorWithFirebase","Error! Database Cancelled");
+
+            }
+
+        });
+
     }
 
     @Override
@@ -134,10 +143,11 @@ public class Logins extends AppCompatActivity {
         teacher = new HashMap<>();
     }
 
+
     public void create(View v){
         Intent intent = new Intent(this, createAccount.class);
-        intent.putExtra("student", (Serializable) student);
-        intent.putExtra("teacher", (Serializable) teacher);
+//        intent.putExtra("student", (Serializable) student);
+//        intent.putExtra("teacher", (Serializable) teacher);
         startActivity(intent);
     }
 
