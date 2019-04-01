@@ -39,23 +39,13 @@ public class Logins extends AppCompatActivity {
 
         myPrefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         mapManager = new UserMapManager();
-        student = mapManager.getUserMap(this, "STUDENT");
-        teacher = mapManager.getUserMap(this, "TEACHER");
+        student = new HashMap<>();
+        teacher = new HashMap<>();
 
         bindWidget();
 
         getPreferencesData();
-        FirebaseDatabase.DefaultInstance
-                .GetReference("Leaders")
-                .GetValueAsync().ContinueWith(task => {
-        if (task.IsFaulted) {
-            // Handle the error...
-        }
-        else if (task.IsCompleted) {
-            DataSnapshot snapshot = task.Result;
-            // Do something with snapshot...
-        }
-      });
+
     }
 
     @Override
@@ -101,15 +91,10 @@ public class Logins extends AppCompatActivity {
     }
 
 
-    public Logins() {
-        student = new HashMap<>();
-        teacher = new HashMap<>();
-    }
-
     public void create(View v){
         Intent intent = new Intent(this, createAccount.class);
-        intent.putExtra("student", (Serializable) student);
-        intent.putExtra("teacher", (Serializable) teacher);
+//        intent.putExtra("student", (Serializable) student);
+//        intent.putExtra("teacher", (Serializable) teacher);
         startActivity(intent);
     }
 

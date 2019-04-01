@@ -9,8 +9,12 @@ import java.util.List;
 
 public class Announcements {
     private ListView lv;
-    private List<String> announcements = new ArrayList<>();
+    private List<String> announcements;
     public Context cnxt;
+
+    public Announcements() {
+        announcements = new ArrayList<>();
+    }
 
     public Announcements(Context context) {
         this.cnxt = context;

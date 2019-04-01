@@ -21,8 +21,8 @@ public class createAccount extends AppCompatActivity {
     public DatabaseReference ref = database.getReference("server/saving-data/TrebleHelpers");
     public DatabaseReference usersRef = ref.child("users");
 
-    public static Map<String, Users> studentMap;
-    public static Map<String, Users> teacherMap;
+    public Map<String, Users> studentMap;
+    public Map<String, Users> teacherMap;
 
     private UserMapManager userMapManager;
 
@@ -31,6 +31,8 @@ public class createAccount extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_account);
         userMapManager = new UserMapManager();
+        studentMap = new HashMap<>();
+        teacherMap = new HashMap<>();
 
         //add back button
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -78,9 +80,11 @@ public class createAccount extends AppCompatActivity {
         Student student = new Student((fName.getText().toString()), lName.getText().toString(),
                 birthday.getText().toString(), phoneNumber, email.getText().toString(),
                 instrument.getText().toString(),userName.getText().toString(), password.getText().toString(), Age);
+
         studentMap = userMapManager.getUserMap(this, "STUDENT");
         studentMap.put(student.getUsername(), student);
         userMapManager.saveUserMap(studentMap,this, "STUDENT");
+
         Log.d("StudentAccount", "A student account was made.");
         usersRef.setValue(student);
         Log.d("FirebaseStudentSave", "student was saved to firebase");
@@ -113,20 +117,22 @@ public class createAccount extends AppCompatActivity {
 
         String phone = phoneNum.getText().toString();
         int phoneNumber = Integer.parseInt(phone);
+        Log.d("J-DEBUG", "Phone: " + phone);
 
         String Age1 = age.getText().toString();  //GETS AGE AS INT
         int Age = Integer.parseInt(Age1);
+        Log.d("J-Debug", "Age: " + Age1);
 
         Teacher teacher = new Teacher((fName.getText().toString()), lName.getText().toString(),
                 birthday.getText().toString(), phoneNumber, email.getText().toString(),
-                instrument.getText().toString(),userName.getText().toString(), password.getText().toString(), Age);
+                instrument.getText().toString(), userName.getText().toString(), password.getText().toString(), Age);
 
         teacherMap = userMapManager.getUserMap(this, "TEACHER");
         teacherMap.put(teacher.getUsername(), teacher);
         userMapManager.saveUserMap(teacherMap,this, "TEACHER");
 
         Log.d("TeacherAccount", "Teacher account has been created");
-        usersRef.setValue(teacher);
+//        usersRef.setValue(teacher);
 
         Log.d("FirebaseTeacherSave", "Teacher saved to firebase");
         Toast.makeText(createAccount.this, "Account for " + teacher.getFirstName() + " Created.", Toast.LENGTH_LONG).show();
