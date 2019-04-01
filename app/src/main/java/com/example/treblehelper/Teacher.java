@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Teacher extends Users {
     public List<Student> students;
-    private Announcements announcements;
+//    private Announcements announcements;
 
     public Teacher(String Username){
         setUsername(Username);
@@ -25,11 +25,12 @@ public class Teacher extends Users {
         setAge(Age);
 
         students = new ArrayList<>();
+//        announcements = new Announcements();
     }
 
     public void  Teacher(List<Student> students, Announcements announcements) {
         this.students = students;
-        this.announcements = announcements;
+//        this.announcements = announcements;
     }
 
 
@@ -41,13 +42,13 @@ public class Teacher extends Users {
         this.students = students;
     }
 
-    public Announcements getAnnouncements() {
-        return announcements;
-    }
-
-    public void setAnnouncements(Announcements announcements) {
-        this.announcements = announcements;
-    }
+//    public Announcements getAnnouncements() {
+//        return announcements;
+//    }
+//
+//    public void setAnnouncements(Announcements announcements) {
+//        this.announcements = announcements;
+//    }
 
     public void addStudent(Student student) {
 

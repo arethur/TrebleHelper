@@ -20,14 +20,18 @@ public class createAccount extends AppCompatActivity {
     private DatabaseReference StudentDatabase = myref.getReference("/users/Q6i1lwnmJhmuVXAz1qgO/student");
     private DatabaseReference TeacherDatabase = myref.getReference("/users/Q6i1lwnmJhmuVXAz1qgO/teacher");
 
-    public static Map<String, Users> studentMap;
-    public static Map<String, Users> teacherMap;
+    public Map<String, Users> studentMap;
+    public Map<String, Users> teacherMap;
+
+    private UserMapManager userMapManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_account);
-
+        userMapManager = new UserMapManager();
+        studentMap = new HashMap<>();
+        teacherMap = new HashMap<>();
 
         //add back button
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -81,7 +85,9 @@ public class createAccount extends AppCompatActivity {
                 birthday.getText().toString(), phoneNumber, email.getText().toString(),
                 instrument.getText().toString(),userName.getText().toString(), password.getText().toString(), Age);
 
+        studentMap = userMapManager.getUserMap(this, "STUDENT");
         studentMap.put(student.getUsername(), student);
+        userMapManager.saveUserMap(studentMap,this, "STUDENT");
 
         Log.d("StudentAccount", "A student account was made.");
         StudentDatabase.setValue(student);
@@ -116,17 +122,21 @@ public class createAccount extends AppCompatActivity {
         Log.d("PhoneNumber", "Converetering phone number to a string");
         String phone = phoneNum.getText().toString();
         int phoneNumber = Integer.parseInt(phone);
+        Log.d("J-DEBUG", "Phone: " + phone);
 
         String Age1 = age.getText().toString();  //GETS AGE AS INT
         int Age = Integer.parseInt(Age1);
+        Log.d("J-Debug", "Age: " + Age1);
 
         Log.d("IntToStrings", "Convereted age and phone number to strings");
 
         Teacher teacher = new Teacher((fName.getText().toString()), lName.getText().toString(),
                 birthday.getText().toString(), phoneNumber, email.getText().toString(),
-                instrument.getText().toString(),userName.getText().toString(), password.getText().toString(), Age);
+                instrument.getText().toString(), userName.getText().toString(), password.getText().toString(), Age);
 
+        teacherMap = userMapManager.getUserMap(this, "TEACHER");
         teacherMap.put(teacher.getUsername(), teacher);
+        userMapManager.saveUserMap(teacherMap,this, "TEACHER");
 
         Log.d("TeacherAccount", "Teacher account has been created");
         TeacherDatabase.setValue(teacher);
@@ -138,4 +148,6 @@ public class createAccount extends AppCompatActivity {
         startActivity(intent);
 
     }
+
+
 }

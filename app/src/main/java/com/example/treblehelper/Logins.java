@@ -2,6 +2,7 @@ package com.example.treblehelper;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.icu.util.ValueIterator;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -40,11 +41,13 @@ public class Logins extends AppCompatActivity {
     public Map<String, Users> teacher;
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
+
     private EditText passwordEditText;
     private EditText usernameEditText;
 
     private CheckBox rememberMe;
     private SharedPreferences myPrefs;
+    private UserMapManager mapManager;
     private static final String PREFS_NAME = "myPrefs";
 
 
@@ -56,6 +59,10 @@ public class Logins extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         myPrefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
 
+        mAuth = FirebaseAuth.getInstance();
+        mapManager = new UserMapManager();
+        student = new HashMap<>();
+        teacher = new HashMap<>();
 
         mAuth.signInAnonymously()
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -71,9 +78,18 @@ public class Logins extends AppCompatActivity {
                             Toast.makeText(Logins.this, "Authentication failed.",Toast.LENGTH_SHORT).show();
 
                         }
-                    }
-                });
+
+        getPreferencesData();
+
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        student = mapManager.getUserMap(this, "STUDENT");
+        teacher = mapManager.getUserMap(this, "TEACHER");
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -104,8 +120,8 @@ public class Logins extends AppCompatActivity {
 
     private void bindWidget() {
         rememberMe = (CheckBox) findViewById(R.id.checkBoxRememberMe);
-        usernameEditText = (EditText) findViewById(R.id.Username);
-        passwordEditText = (EditText) findViewById(R.id.Password);
+        usernameEditText = findViewById(R.id.Username);
+        passwordEditText = findViewById(R.id.Password);
 
     }
 
@@ -113,7 +129,6 @@ public class Logins extends AppCompatActivity {
     public Logins() {
         student = new HashMap<>();
         teacher = new HashMap<>();
-
         FirebaseStudent.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -162,31 +177,30 @@ public class Logins extends AppCompatActivity {
             }
         });
     }
-//        //This is a test.
-//            Student TestStudent = new Student("Gary","Robert",
-//                    "May 20 1997",55065252,
-//                    "gary@gmail.com", "piano",
-//                    "GarBot", "123", 14);
+//    //This is a test.
+//    Student TestStudent = new Student("Gary","Robert",
+//            "May 20 1997",55065252,
+//            "gary@gmail.com", "piano",
+//            "GarBot", "123", 14);
 //
 //            student.put(TestStudent.getUsername(), TestStudent);
 //
 //            myref.setValue(student);
 //
-//            Teacher TestTeacher = new Teacher( "Hannah", "Smith",
-//                    "November 2, 2016", 55026982,
-//                    "hannah@gmail.com", "piano",
-//                    "HanahBot", "123", 31 );
+//    Teacher TestTeacher = new Teacher( "Hannah", "Smith",
+//            "November 2, 2016", 55026982,
+//            "hannah@gmail.com", "piano",
+//            "HanahBot", "123", 31 );
 //
 //            teacher.put(TestTeacher.getUsername(), TestTeacher);
 //
 //            System.out.println("This is the test in Create account");
 
 
-
     public void create(View v){
         Intent intent = new Intent(this, createAccount.class);
-        intent.putExtra("student", (Serializable) student);
-        intent.putExtra("teacher", (Serializable) teacher);
+//        intent.putExtra("student", (Serializable) student);
+//        intent.putExtra("teacher", (Serializable) teacher);
         startActivity(intent);
     }
 
