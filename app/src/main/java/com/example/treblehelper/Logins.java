@@ -37,8 +37,6 @@ public class Logins extends AppCompatActivity {
     public Map<String, Users> teacher;
     public DatabaseReference myref = FirebaseDatabase.getInstance()
             .getReference("/users/Q6i1lwnmJhmuVXAz1qgO");
-    public Map<String, Users> student =  createAccount.studentMap;
-    public Map<String, Users> teacher = createAccount.teacherMap;
     private FirebaseAuth mAuth;
 
 
