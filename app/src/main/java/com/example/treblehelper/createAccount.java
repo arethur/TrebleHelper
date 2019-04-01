@@ -23,9 +23,6 @@ public class createAccount extends AppCompatActivity {
     public static Map<String, Users> studentMap;
     public static Map<String, Users> teacherMap;
 
-    public void createAccount(){
-
-    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,26 +34,6 @@ public class createAccount extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-    //This is a test.
-    public createAccount(){
-        Student TestStudent = new Student("Gary","Robert",
-                "May 20 1997",55065252,
-                "gary@gmail.com", "piano",
-                "GarBot", "123", 14);
-
-        studentMap.put(TestStudent.getUsername(), TestStudent);
-
-        myref.setValue(studentMap);
-
-        Teacher TestTeacher = new Teacher( "Hannah", "Smith",
-                "November 2, 2016", 55026982,
-                "hannah@gmail.com", "piano",
-                "HanahBot", "123", 31 );
-
-        teacherMap.put(TestTeacher.getUsername(), TestTeacher);
-
-        System.out.println("This is the test in Create account");
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

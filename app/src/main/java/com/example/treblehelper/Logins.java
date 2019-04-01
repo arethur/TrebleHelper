@@ -141,6 +141,25 @@ public class Logins extends AppCompatActivity {
     public Logins() {
         student = new HashMap<>();
         teacher = new HashMap<>();
+        //This is a test.
+            Student TestStudent = new Student("Gary","Robert",
+                    "May 20 1997",55065252,
+                    "gary@gmail.com", "piano",
+                    "GarBot", "123", 14);
+
+            student.put(TestStudent.getUsername(), TestStudent);
+
+            myref.setValue(student);
+
+            Teacher TestTeacher = new Teacher( "Hannah", "Smith",
+                    "November 2, 2016", 55026982,
+                    "hannah@gmail.com", "piano",
+                    "HanahBot", "123", 31 );
+
+            teacher.put(TestTeacher.getUsername(), TestTeacher);
+
+            System.out.println("This is the test in Create account");
+
     }
 
 
