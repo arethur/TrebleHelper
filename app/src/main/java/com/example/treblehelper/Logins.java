@@ -53,8 +53,8 @@ public class Logins extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         myPrefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        bindWidget();
         getPreferencesData();
-
 
         mAuth = FirebaseAuth.getInstance();
         mapManager = new UserMapManager();
@@ -89,6 +89,7 @@ public class Logins extends AppCompatActivity {
         super.onResume();
         student = mapManager.getUserMap(this, "STUDENT");
         teacher = mapManager.getUserMap(this, "TEACHER");
+        getPreferencesData();
     }
 
 
@@ -104,7 +105,6 @@ public class Logins extends AppCompatActivity {
     }
 
     private void getPreferencesData() {
-        bindWidget();
         SharedPreferences sp = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         if (sp.contains("pref_name")) {
             String u = sp.getString("pref_name", "Not Found");
@@ -217,7 +217,7 @@ public class Logins extends AppCompatActivity {
             editor.putBoolean("pref_check", boolIsChecked);
             editor.apply();
             Toast.makeText(getApplicationContext(),
-                    "Settings have been saved",Toast.LENGTH_LONG).show();
+                    "Settings have been saved",Toast.LENGTH_SHORT).show();
         }else {
             myPrefs.edit().clear().apply();
         }

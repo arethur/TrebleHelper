@@ -41,42 +41,42 @@ public class TeacherView extends AppCompatActivity {
             }
         }
 
-        if (teacher != null) {
-            studentList = (ArrayList<Student>) teacher.students;
-        }
-
-        TextView name = findViewById(R.id.textView2);
-        name.setText(teacher.getFirstName() + " " + teacher.getLastName());
-
-        Log.i("Listviews", "Starting on list views.");
-
-        Announcements announcements = new Announcements(this);
-        announcements.viewAnnouncements();
-
-        Log.d("AnoucementsList", "Announcement listView was made.");
-
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
-        SL = SL.findViewById(R.id.studentslist);
-        SL.setAdapter(arrayAdapter);
-
-        for(Users students : studentList) {
-            String outlook = " ";
-            if (studentList.size() > 0) {
-                outlook = String.valueOf(studentList.get(0));
-            }
-            arrayAdapter.add(outlook);
-        }
-
-        Log.d("StudentsList","Student ListView was made");
-
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+//        if (teacher != null) {
+//            studentList = (ArrayList<Student>) teacher.students;
+//        }
+//
+//        TextView name = findViewById(R.id.textView2);
+//        name.setText(teacher.getFirstName() + " " + teacher.getLastName());
+//
+//        Log.i("Listviews", "Starting on list views.");
+//
+//        Announcements announcements = new Announcements(this);
+//        announcements.viewAnnouncements();
+//
+//        Log.d("AnoucementsList", "Announcement listView was made.");
+//
+//        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
+//        SL = SL.findViewById(R.id.studentslist);
+//        SL.setAdapter(arrayAdapter);
+//
+//        for(Users students : studentList) {
+//            String outlook = " ";
+//            if (studentList.size() > 0) {
+//                outlook = String.valueOf(studentList.get(0));
+//            }
+//            arrayAdapter.add(outlook);
+//        }
+//
+//        Log.d("StudentsList","Student ListView was made");
+//
+//        FloatingActionButton fab = findViewById(R.id.fab);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+//            }
+//        });
 
     }
 
