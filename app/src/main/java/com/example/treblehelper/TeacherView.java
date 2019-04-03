@@ -51,7 +51,7 @@ public class TeacherView extends AppCompatActivity {
         }
 
         TextView name = findViewById(R.id.textView2);
-        name.setText(User.getFirstName() + " " + User.getLastName());
+        name.setText(teacher.getFirstName() + " " + teacher.getLastName());
 
         Log.i("Listviews", "Starting on list views.");
 //
@@ -86,7 +86,7 @@ public class TeacherView extends AppCompatActivity {
     }
 
 //   public Addstudents(View view){
-//
+//    Map<String, Users> Students;
 //
 //   }
 }
