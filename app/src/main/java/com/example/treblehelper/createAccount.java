@@ -66,7 +66,7 @@ public class createAccount extends AppCompatActivity {
         EditText password2 = findViewById(R.id.password2);
         EditText age = findViewById(R.id.age);
 
-        if(!password.equals(password2)){
+        if(!(password.getText().toString().equals(password2.getText().toString()))){
             Toast.makeText(createAccount.this, "Passwords do not match.",Toast.LENGTH_LONG).show();
             password.getText().clear();
             password2.getText().clear();
