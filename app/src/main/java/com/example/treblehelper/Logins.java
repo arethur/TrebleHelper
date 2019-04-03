@@ -22,6 +22,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -53,7 +54,8 @@ public class Logins extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         myPrefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-//        getPreferencesData();
+        bindWidget();
+        getPreferencesData();
 
 
         mAuth = FirebaseAuth.getInstance();
@@ -84,9 +86,9 @@ public class Logins extends AppCompatActivity {
 
     @Override
     public void onResume() {
-        Logins.super.onResume();
-        student = mapManager.getUserMap(Logins.this, "STUDENT");
-        teacher = mapManager.getUserMap(Logins.this, "TEACHER");
+        super.onResume();
+        student = mapManager.getUserMap(this, "STUDENT");
+        teacher = mapManager.getUserMap(this, "TEACHER");
     }
 
 
@@ -105,11 +107,11 @@ public class Logins extends AppCompatActivity {
         SharedPreferences sp = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         if (sp.contains("pref_name")) {
             String u = sp.getString("pref_name", "Not Found");
-            usernameEditText.setText(u.toString());
+            usernameEditText.setText(u);
         }
         if (sp.contains("pref_pass")) {
             String p = sp.getString("pref_pass", "Fot Found");
-            passwordEditText.setText(p.toString());
+            passwordEditText.setText(p);
         }
         if (sp.contains("pref_check")) {
             Boolean b = sp.getBoolean("pref_check", false);
@@ -118,7 +120,7 @@ public class Logins extends AppCompatActivity {
         }
     }
     private void bindWidget() {
-        rememberMe = (CheckBox) findViewById(R.id.checkBoxRememberMe);
+        rememberMe = findViewById(R.id.checkBoxRememberMe);
         usernameEditText = findViewById(R.id.Username);
         passwordEditText = findViewById(R.id.Password);
 
@@ -197,9 +199,9 @@ public class Logins extends AppCompatActivity {
 
 
     public void create(View v){
-        Intent intent = new Intent(Logins.this, createAccount.class);
-        intent.putExtra("student", (Serializable) student);
-        intent.putExtra("teacher", (Serializable) teacher);
+        Intent intent = new Intent(this, createAccount.class);
+//        intent.putExtra("student", (Serializable) student);
+//        intent.putExtra("teacher", (Serializable) teacher);
         startActivity(intent);
     }
 
@@ -224,9 +226,12 @@ public class Logins extends AppCompatActivity {
 
             Log.i("LoginMatchTeacher", "The Username and Password match a teacher's account");
 
-            Teacher teacherUser = (Teacher) teacher.get(username);
-            TeacherView TV = new TeacherView(teacherUser);
-            Intent intent = new Intent(Logins.this, TV.getClass());
+//            Teacher teacherUser = (Teacher) teacher.get(username);
+//            TeacherView TV = new TeacherView(teacherUser);
+            Intent intent = new Intent(this, TeacherView.class);
+            Gson gson = new Gson();
+            String stringTeach = gson.toJson(teacher.get(username));
+            intent.putExtra("teacher", stringTeach);
 
             Log.i("TeacherView", "Teacher intent was created");
 
@@ -238,13 +243,13 @@ public class Logins extends AppCompatActivity {
 
             Student studentUser = (Student) student.get(username);
             StudentView SV = new StudentView(studentUser);
-            Intent intent = new Intent(Logins.this, SV.getClass());
+            Intent intent = new Intent(this, SV.getClass());
 
             Log.i("StudentView", "Student intent was created.");
 
             startActivity(intent);
         } else
-            Toast.makeText(Logins.this,"Invalid Username or Password.",Toast.LENGTH_LONG).show();
+            Toast.makeText(this,"Invalid Username or Password.",Toast.LENGTH_LONG).show();
             usernameEditText.getText().clear();
             passwordEditText.getText().clear();
     }
