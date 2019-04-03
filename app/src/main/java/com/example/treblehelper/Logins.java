@@ -24,7 +24,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 
-import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -54,7 +53,6 @@ public class Logins extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         myPrefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-        bindWidget();
         getPreferencesData();
 
 
@@ -63,6 +61,8 @@ public class Logins extends AppCompatActivity {
         student = new HashMap<>();
         teacher = new HashMap<>();
 
+
+        //Authentication for Firebase
         mAuth.signInAnonymously()
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -104,6 +104,7 @@ public class Logins extends AppCompatActivity {
     }
 
     private void getPreferencesData() {
+        bindWidget();
         SharedPreferences sp = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         if (sp.contains("pref_name")) {
             String u = sp.getString("pref_name", "Not Found");
@@ -131,13 +132,16 @@ public class Logins extends AppCompatActivity {
         student = new HashMap<>();
         teacher = new HashMap<>();
         FirebaseStudent.addListenerForSingleValueEvent(new ValueEventListener() {
+
+            //Event Listeners that check the and update the maps every time the app starts up.
+            // This is for the student map.
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 student = (Map) dataSnapshot.getValue();
                 Iterator<String> itr = student.keySet().iterator();
                 while ((itr).hasNext()) {
-                    System.out.println("This is in the map " + ((Iterator) itr).next());
+                    Log.i("Mapreding","This is in the map " + ((Iterator) itr).next());
                 }
 
                 String message = (String) dataSnapshot.getValue();
@@ -155,6 +159,7 @@ public class Logins extends AppCompatActivity {
 
         });
 
+        //This event listener is for the Teacher map.
         FirebaseTeacher.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -162,7 +167,7 @@ public class Logins extends AppCompatActivity {
                 teacher = (Map) dataSnapshot.getValue();
                 Iterator<String> itr = teacher.keySet().iterator();
                 while ((itr).hasNext()) {
-                    System.out.println("This is in the map " + ((Iterator) itr).next());
+                    Log.d("CheckingIterator","This is in the map " + ((Iterator) itr).next());
                 }
 
                 String message = (String) dataSnapshot.getValue();
@@ -186,7 +191,7 @@ public class Logins extends AppCompatActivity {
 //
 //            student.put(TestStudent.getUsername(), TestStudent);
 //
-//            myref.setValue(student);
+//            FirebaseStudent.setValue(student);
 //
 //    Teacher TestTeacher = new Teacher( "Hannah", "Smith",
 //            "November 2, 2016", 55026982,
@@ -194,14 +199,12 @@ public class Logins extends AppCompatActivity {
 //            "HanahBot", "123", 31 );
 //
 //            teacher.put(TestTeacher.getUsername(), TestTeacher);
-//
+//              FirebaseTeacher.setValue(teacher);
 //            System.out.println("This is the test in Create account");
 
 
     public void create(View v){
         Intent intent = new Intent(this, createAccount.class);
-//        intent.putExtra("student", (Serializable) student);
-//        intent.putExtra("teacher", (Serializable) teacher);
         startActivity(intent);
     }
 
@@ -226,8 +229,6 @@ public class Logins extends AppCompatActivity {
 
             Log.i("LoginMatchTeacher", "The Username and Password match a teacher's account");
 
-//            Teacher teacherUser = (Teacher) teacher.get(username);
-//            TeacherView TV = new TeacherView(teacherUser);
             Intent intent = new Intent(this, TeacherView.class);
             Gson gson = new Gson();
             String stringTeach = gson.toJson(teacher.get(username));
@@ -237,13 +238,15 @@ public class Logins extends AppCompatActivity {
 
             startActivity(intent);
 
-        }else if(student.containsKey(username) && student.get(username).getPassword() == password){
+        }else if(student.containsKey(username) && student.get(username).getPassword().equals(password)){
 
             Log.i("LoginMatchStudent", "The Username and Password match a student's account");
 
-            Student studentUser = (Student) student.get(username);
-            StudentView SV = new StudentView(studentUser);
-            Intent intent = new Intent(this, SV.getClass());
+
+            Intent intent = new Intent(this, StudentView.class);
+            Gson gson = new Gson();
+            String stringStudent = gson.toJson(student.get(username));
+            intent.putExtra("student", stringStudent);
 
             Log.i("StudentView", "Student intent was created.");
 

@@ -66,7 +66,7 @@ public class createAccount extends AppCompatActivity {
         EditText password2 = findViewById(R.id.password2);
         EditText age = findViewById(R.id.age);
 
-        if(!password.equals(password2)){
+        if(!(password.getText().toString().equals(password2.getText().toString()))){
             Toast.makeText(createAccount.this, "Passwords do not match.",Toast.LENGTH_LONG).show();
             password.getText().clear();
             password2.getText().clear();
@@ -91,7 +91,10 @@ public class createAccount extends AppCompatActivity {
         userMapManager.saveUserMap(studentMap,this, "STUDENT");
 
         Log.d("StudentAccount", "A student account was made.");
+
+        //Adding new student to firebase.
         StudentDatabase.setValue(student);
+
         Log.d("FirebaseStudentSave", "student was saved to firebase");
         Toast.makeText(createAccount.this, "Account for " + student.getFirstName() + " Created.", Toast.LENGTH_LONG).show();
 
@@ -140,6 +143,7 @@ public class createAccount extends AppCompatActivity {
         userMapManager.saveUserMap(teacherMap,this, "TEACHER");
 
         Log.d("TeacherAccount", "Teacher account has been created");
+//Adding the new teacher to Firebase.
         TeacherDatabase.setValue(teacher);
 
         Log.d("FirebaseTeacherSave", "Teacher saved to firebase");
