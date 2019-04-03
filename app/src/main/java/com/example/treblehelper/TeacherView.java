@@ -22,12 +22,9 @@ import java.util.Map;
 
 public class TeacherView extends AppCompatActivity {
 
-    private Teacher User;
+    private Teacher teacher;
     private ArrayList<Student> studentList;
     private ListView SL;
-    private Map<String, Users> userMap;
-    private static final String PREFS = "MAP_LOCATION";
-    private static final String MAP_TEACHER = "MAP_TEACHER";
     private Gson gson = new Gson();
 
 
@@ -49,7 +46,7 @@ public class TeacherView extends AppCompatActivity {
                 stringTeach = null;
             } else {
                 stringTeach = extras.getString("teacher");
-                User= gson.fromJson(stringTeach, Teacher.class);
+                teacher = gson.fromJson(stringTeach, Teacher.class);
             }
         }
 
