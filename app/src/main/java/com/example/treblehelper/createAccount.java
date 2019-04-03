@@ -91,7 +91,10 @@ public class createAccount extends AppCompatActivity {
         userMapManager.saveUserMap(studentMap,this, "STUDENT");
 
         Log.d("StudentAccount", "A student account was made.");
+
+        //Adding new student to firebase.
         StudentDatabase.setValue(student);
+
         Log.d("FirebaseStudentSave", "student was saved to firebase");
         Toast.makeText(createAccount.this, "Account for " + student.getFirstName() + " Created.", Toast.LENGTH_LONG).show();
 
@@ -140,6 +143,7 @@ public class createAccount extends AppCompatActivity {
         userMapManager.saveUserMap(teacherMap,this, "TEACHER");
 
         Log.d("TeacherAccount", "Teacher account has been created");
+//Adding the new teacher to Firebase.
         TeacherDatabase.setValue(teacher);
 
         Log.d("FirebaseTeacherSave", "Teacher saved to firebase");
