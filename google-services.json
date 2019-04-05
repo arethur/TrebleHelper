@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "614409269168",
+    "firebase_url": "https://treble-helper.firebaseio.com",
+    "project_id": "treble-helper",
+    "storage_bucket": "treble-helper.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:614409269168:android:4c3d88d2663c0eb4",
+        "android_client_info": {
+          "package_name": "com.example.treblehelper"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "614409269168-chug00nqk8bd54v51r1autdq7acvmdp5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.treblehelper",
+            "certificate_hash": "39b5c504bd6b43f922575f7ff0ab91cf0f738ada"
+          }
+        },
+        {
+          "client_id": "614409269168-2dovrtbaufsokgo49ljdabnkng9u31fi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDMNoExEO7UJC7g3F-wsK1GuunT66Lj854"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "614409269168-2dovrtbaufsokgo49ljdabnkng9u31fi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
