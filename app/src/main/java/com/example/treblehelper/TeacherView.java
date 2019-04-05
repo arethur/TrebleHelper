@@ -1,5 +1,9 @@
 package com.example.treblehelper;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -8,8 +12,10 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -27,10 +33,10 @@ public class TeacherView extends AppCompatActivity {
     private ListView SL;
     private Gson gson = new Gson();
 
+    //for practicing the popup
+    private String username;
 
-//    public TeacherView(Teacher teachers1){
-//        this.teacher = teachers1;
-//    }
+
 
 
     @Override
@@ -50,8 +56,20 @@ public class TeacherView extends AppCompatActivity {
             }
         }
 
+        //trying another method
+//        Button b = (Button) findViewById(R.id.button);
+//        b.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(TeacherView.this, Popup.class);
+////                intent.putExtra("username", username);
+//                startActivityForResult(intent, 1);
+//            }
+//        });
+
+
         TextView name = findViewById(R.id.textView2);
-        name.setText(User.getFirstName() + " " + User.getLastName());
+        name.setText(teacher.getFirstName() + " " + teacher.getLastName());
 
         Log.i("Listviews", "Starting on list views.");
 //
@@ -84,6 +102,29 @@ public class TeacherView extends AppCompatActivity {
 //        });
 
     }
+    public void startPopup(View view) {
+        Intent intent = new Intent(this, Popup.class);
+//        intent.putExtra("username", username);
+        startActivityForResult(intent, 1);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            if(resultCode == Activity.RESULT_OK){
+                username = data.getStringExtra("valueId");
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                //Write your code if there's no result
+            }
+        }
+        Toast.makeText(this,"Got Student ID: " + username, Toast.LENGTH_LONG).show();
+        Map<String, Users> stringUsersMap = new UserMapManager().getUserMap(this, "STUDENT");
+        if (stringUsersMap.containsKey(username)) {
+            teacher.students.add((Student) stringUsersMap.get(username));
+        }
+     }
 
 //   public Addstudents(View view){
 //

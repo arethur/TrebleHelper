@@ -10,15 +10,15 @@ import java.util.List;
 public class Announcements {
     private ListView lv;
     private List<String> announcements;
-    public Context cnxt;
+//    public Context cnxt;
 
     public Announcements() {
         announcements = new ArrayList<>();
     }
 
-    public Announcements(Context context) {
-        this.cnxt = context;
-    }
+//    public Announcements(Context context) {
+//        this.cnxt = context;
+//    }
 
     public Announcements(List<String> announcements) {
         this.announcements = announcements;
@@ -34,8 +34,8 @@ public class Announcements {
 
     public void addAnnounce(String newAnnouncement) { announcements.add(newAnnouncement); }
 
-    public void viewAnnouncements() {
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(cnxt, android.R.layout.simple_list_item_1);
+    public void viewAnnouncements(Context context) {
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1);
         lv = lv.findViewById(R.id.annoucements);
         lv.setAdapter(arrayAdapter);
 
