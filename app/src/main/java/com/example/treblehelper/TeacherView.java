@@ -33,7 +33,6 @@ public class TeacherView extends AppCompatActivity {
     private ListView SL;
     private Gson gson = new Gson();
 
-    //for practicing the popup
     private String username;
 
 
@@ -110,14 +109,19 @@ public class TeacherView extends AppCompatActivity {
                 //Write your code if there's no result
             }
         }
-        Map<String, Users> stringUsersMap = new UserMapManager().getUserMap(this, "STUDENT");
-        Toast.makeText(this,"Got Student ID: " + stringUsersMap.get(username).getFirstName(),
+        Map<String, Users> studentMap = new UserMapManager().getUserMap(this, "STUDENT");
+        Toast.makeText(this,"Got Student ID: " + studentMap.get(username).getFirstName(),
                 Toast.LENGTH_LONG).show();
-        if (stringUsersMap.containsKey(username)) {
-            teacher.students.add(stringUsersMap.get(username));
+        if (studentMap.containsKey(username)) {
+            teacher.students.add(studentMap.get(username));
         } else {
             Toast.makeText(this,"Invalid Username", Toast.LENGTH_LONG).show();
         }
+        UserMapManager mapManager = new UserMapManager();
+        Map<String, Users> teacherMap = mapManager.getUserMap(this, "TEACHER");
+        teacherMap.remove(teacher.getUsername());
+        teacherMap.put(teacher.getUsername(), teacher);
+        mapManager.saveUserMap(teacherMap, this, "TEACHER");
      }
 
 
