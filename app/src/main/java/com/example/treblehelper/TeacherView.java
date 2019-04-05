@@ -19,6 +19,7 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class TeacherView extends AppCompatActivity {
 
@@ -27,7 +28,7 @@ public class TeacherView extends AppCompatActivity {
     private ListView SL;
     private Gson gson = new Gson();
     private List<String> arrayAdapter = new ArrayList<>();
-
+    public String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
