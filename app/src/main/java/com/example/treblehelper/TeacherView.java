@@ -1,14 +1,12 @@
 package com.example.treblehelper;
 
+import android.content.Intent;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -18,11 +16,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -32,18 +27,14 @@ public class TeacherView extends AppCompatActivity {
     private ArrayList<Student> studentList;
     private ListView SL;
     private Gson gson = new Gson();
-
-    private String username;
-
-
-
+    private List<String> arrayAdapter = new ArrayList<>();
+    public String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teacher_view);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+
         String stringTeach = null;
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
@@ -55,23 +46,12 @@ public class TeacherView extends AppCompatActivity {
             }
         }
 
-
-
-
         TextView name = findViewById(R.id.textView2);
         name.setText(teacher.getFirstName() + " " + teacher.getLastName());
 
         Log.i("Listviews", "Starting on list views.");
-//
-//        Announcements announcements = new Announcements(this);
-//        announcements.viewAnnouncements();
-//
-//        Log.d("AnoucementsList", "Announcement listView was made.");
-//
-//        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
-//        SL = SL.findViewById(R.id.studentslist);
-//        SL.setAdapter(arrayAdapter);
-//
+        Log.d("Annoucements", "Starting on the announcements");
+        AnnocumentViewlist();
 //        for(Users students : studentList) {
 //            String outlook = " ";
 //            if (studentList.size() > 0) {
@@ -124,5 +104,33 @@ public class TeacherView extends AppCompatActivity {
         mapManager.saveUserMap(teacherMap, this, "TEACHER");
      }
 
+
+    public void AnnocumentViewlist() {
+
+        Announcements announcements = new Announcements(this);
+        List<String> Aview = announcements.viewAnnouncements();
+
+        if (Aview.size() == 0)
+        {
+            Aview.add("You currently have no Announcements");
+        }
+
+        CustomArrayAdapterAnnoucemet Alist = new CustomArrayAdapterAnnoucemet(this, Aview);
+
+        Log.d("AnnouceListview", "The Array adapter has been made and converted over ");
+
+
+
+        ListView lv = findViewById(R.id.Alistview);
+        lv.setAdapter(Alist);
+
+        Log.d("AnoucementsList", "Announcement listView was made.");
+    }
+
+    public void AddAnnouncement(View View){
+        Intent intent= new Intent(this, AddingAnnoucement.class);
+        startActivity(intent);
+
+    }
 
 }
