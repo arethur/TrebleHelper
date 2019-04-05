@@ -11,6 +11,7 @@ public class Teacher extends Users {
     public Teacher(String Username){
         setUsername(Username);
     }
+
     public Teacher(String firstName, String lastName, String birthday,
                    int phoneNumber, String email,
                    String instrument, String username, String password, int Age) {
