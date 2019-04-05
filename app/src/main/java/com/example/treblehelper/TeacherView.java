@@ -56,16 +56,7 @@ public class TeacherView extends AppCompatActivity {
             }
         }
 
-        //trying another method
-//        Button b = (Button) findViewById(R.id.button);
-//        b.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(TeacherView.this, Popup.class);
-////                intent.putExtra("username", username);
-//                startActivityForResult(intent, 1);
-//            }
-//        });
+
 
 
         TextView name = findViewById(R.id.textView2);
@@ -119,15 +110,15 @@ public class TeacherView extends AppCompatActivity {
                 //Write your code if there's no result
             }
         }
-        Toast.makeText(this,"Got Student ID: " + username, Toast.LENGTH_LONG).show();
         Map<String, Users> stringUsersMap = new UserMapManager().getUserMap(this, "STUDENT");
+        Toast.makeText(this,"Got Student ID: " + stringUsersMap.get(username).getFirstName(),
+                Toast.LENGTH_LONG).show();
         if (stringUsersMap.containsKey(username)) {
-            teacher.students.add((Student) stringUsersMap.get(username));
+            teacher.students.add(stringUsersMap.get(username));
+        } else {
+            Toast.makeText(this,"Invalid Username", Toast.LENGTH_LONG).show();
         }
      }
 
-//   public Addstudents(View view){
-//    Map<String, Users> Students;
-//
-//   }
+
 }
